@@ -18,12 +18,19 @@ Notes:
 """
 
 import sys
+import io
 import glob
 import os
 import re
 import subprocess
 import time
 from pathlib import Path
+
+# Force UTF-8 stdout/stderr on Windows to handle emojis in post content
+if sys.stdout and hasattr(sys.stdout, "buffer"):
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+if sys.stderr and hasattr(sys.stderr, "buffer"):
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
 
 try:
     from playwright.sync_api import sync_playwright, TimeoutError as PwTimeout

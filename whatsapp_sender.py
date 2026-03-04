@@ -6,10 +6,17 @@ Reads approved .md files from Approved/ and sends WhatsApp messages via WhatsApp
 import os
 import re
 import sys
+import io
 import shutil
 import subprocess
 from pathlib import Path
 from datetime import datetime
+
+# Force UTF-8 stdout/stderr on Windows to handle emojis in message content
+if sys.stdout and hasattr(sys.stdout, "buffer"):
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+if sys.stderr and hasattr(sys.stderr, "buffer"):
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
 
 try:
     from playwright.sync_api import sync_playwright, TimeoutError as PwTimeout
