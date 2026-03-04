@@ -335,12 +335,33 @@ def post_to_linkedin(content):
                 context.close()
                 return False
 
-            print("[INFO] Typing post content...")
+            print("[INFO] Pasting post content via clipboard...")
             page.wait_for_timeout(500)
-            for i, line in enumerate(content.split("\n")):
-                if i > 0:
-                    page.keyboard.press("Enter")
-                page.keyboard.type(line, delay=10)
+            # Use clipboard paste — instant, no timeout risk, handles emojis
+            page.evaluate("text => navigator.clipboard.writeText(text)", content)
+            page.wait_for_timeout(300)
+            page.keyboard.press("Control+v")
+            page.wait_for_timeout(1000)
+            # Fallback: if paste didn't work, try JS insertion
+            editor_text = page.evaluate("""
+                () => {
+                    const el = document.querySelector('div.ql-editor, div[role="textbox"][contenteditable="true"]');
+                    return el ? el.innerText.trim() : '';
+                }
+            """)
+            if len(editor_text) < 20:
+                print("[INFO] Clipboard paste may not have worked — trying JS insert...")
+                page.evaluate("""
+                    text => {
+                        const el = document.querySelector('div.ql-editor, div[role="textbox"][contenteditable="true"]');
+                        if (el) {
+                            el.focus();
+                            el.innerHTML = text.split('\\n').map(l => '<p>' + l + '</p>').join('');
+                            el.dispatchEvent(new Event('input', {bubbles: true}));
+                        }
+                    }
+                """, content)
+                page.wait_for_timeout(500)
 
             page.wait_for_timeout(1000)
 
