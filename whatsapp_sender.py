@@ -41,15 +41,21 @@ PROFILE_DIR.mkdir(exist_ok=True)
 # HELPERS
 # ──────────────────────────────────────────────
 def close_chrome():
-    """Kill any running Chrome instances to avoid profile lock conflicts."""
+    """Kill any running Chrome/Chromium instances to avoid profile lock conflicts."""
+    import time as _t
+    killed = False
     try:
         if sys.platform == "win32":
-            result = subprocess.run(
-                ["taskkill", "/F", "/IM", "chrome.exe"],
-                capture_output=True, text=True,
-            )
-            if result.returncode == 0:
-                print("[INFO] Chrome is running — closing it to avoid profile conflicts...")
+            for proc_name in ["chrome.exe", "chromium.exe"]:
+                result = subprocess.run(
+                    ["taskkill", "/F", "/IM", proc_name],
+                    capture_output=True, text=True,
+                )
+                if result.returncode == 0:
+                    killed = True
+            if killed:
+                print("[INFO] Closed Chrome/Chromium to free profile lock...")
+                _t.sleep(3)  # wait for profile lock to release
         else:
             subprocess.run(["pkill", "-f", "chrome"], capture_output=True)
     except Exception:
@@ -58,30 +64,36 @@ def close_chrome():
 
 def get_browser_context(playwright):
     """Launch persistent Chromium context with saved profile."""
-    # Try system Chrome first, fall back to bundled Chromium
-    for channel in ["chrome", None]:
-        try:
-            kwargs = dict(
-                user_data_dir=str(PROFILE_DIR),
-                headless=False,
-                args=[
-                    "--disable-blink-features=AutomationControlled",
-                    "--no-sandbox",
-                    "--disable-dev-shm-usage",
-                    "--no-first-run",
-                    "--no-default-browser-check",
-                ],
-                viewport={"width": 1280, "height": 900},
-                ignore_default_args=["--enable-automation"],
-                slow_mo=100,
-            )
-            if channel:
-                kwargs["channel"] = channel
-            return playwright.chromium.launch_persistent_context(**kwargs)
-        except Exception as e:
-            if channel is None:
-                raise e
-            print(f"[WARN] Chrome channel failed ({e}), trying bundled Chromium...")
+    # Remove stale lock files that prevent browser from opening
+    lock_file = PROFILE_DIR / "lockfile"
+    default_lock = PROFILE_DIR / "Default" / "LOCK"
+    for lf in [lock_file, default_lock]:
+        if lf.exists():
+            try:
+                lf.unlink()
+                print(f"[INFO] Removed stale lock: {lf.name}")
+            except Exception:
+                pass
+
+    # Use bundled Chromium (most stable) — system Chrome causes profile conflicts
+    return playwright.chromium.launch_persistent_context(
+        user_data_dir=str(PROFILE_DIR),
+        headless=False,
+        args=[
+            "--disable-blink-features=AutomationControlled",
+            "--no-sandbox",
+            "--disable-dev-shm-usage",
+            "--disable-gpu",
+            "--no-first-run",
+            "--no-default-browser-check",
+            "--disable-extensions",
+            "--disable-background-networking",
+            "--disable-sync",
+            "--no-zygote",
+        ],
+        viewport={"width": 1280, "height": 900},
+        ignore_default_args=["--enable-automation"],
+    )
 
 
 def parse_message_file(filepath):
@@ -103,6 +115,7 @@ def login_flow():
     """Open browser for QR code scan, then save session."""
     print("[INFO] Opening browser for WhatsApp Web login...")
     print("[INFO] Scan the QR code, then close the browser window.")
+    close_chrome()
 
     with sync_playwright() as p:
         context = get_browser_context(p)
@@ -146,8 +159,18 @@ def send_whatsapp(contact, message):
                     break
                 except Exception as nav_err:
                     if attempt < 2:
-                        print(f"[WARN] Navigation failed, retrying in 10s... ({nav_err})")
-                        page.wait_for_timeout(10000)
+                        print(f"[WARN] Navigation failed, relaunching browser in 5s...")
+                        import time as _t
+                        try:
+                            context.close()
+                        except Exception:
+                            pass
+                        _t.sleep(5)
+                        try:
+                            context = get_browser_context(p)
+                            page = context.pages[0] if context.pages else context.new_page()
+                        except Exception:
+                            raise nav_err
                     else:
                         raise nav_err
 
@@ -254,6 +277,9 @@ def process_approved():
         print("[INFO] Nothing to send.")
         return
 
+    # Kill any stale Chrome to avoid profile lock
+    close_chrome()
+
     # Open browser ONCE for all messages
     sent = 0
     with sync_playwright() as p:
@@ -265,7 +291,8 @@ def process_approved():
 
         page = context.pages[0] if context.pages else context.new_page()
 
-        # Navigate to WhatsApp Web once
+        # Navigate to WhatsApp Web — ERR_ABORTED on first try is normal (redirect)
+        # On failure: close entire context, wait, relaunch fresh
         loaded = False
         for attempt in range(3):
             try:
@@ -274,11 +301,26 @@ def process_approved():
                 break
             except Exception as nav_err:
                 if attempt < 2:
-                    print(f"[WARN] Navigation failed, retrying in 10s... ({nav_err})")
-                    page.wait_for_timeout(10000)
+                    print(f"[WARN] Navigation failed, relaunching browser in 5s...")
+                    import time as _t
+                    try:
+                        context.close()
+                    except Exception:
+                        pass
+                    _t.sleep(5)
+                    # Relaunch fresh context + page
+                    try:
+                        context = get_browser_context(p)
+                        page = context.pages[0] if context.pages else context.new_page()
+                    except Exception as relaunch_err:
+                        print(f"[ERROR] Relaunch failed: {relaunch_err}")
+                        return
                 else:
                     print(f"[ERROR] Could not reach WhatsApp Web: {nav_err}")
-                    context.close()
+                    try:
+                        context.close()
+                    except Exception:
+                        pass
                     return
 
         print("[INFO] Waiting for WhatsApp to load (up to 5 min for first-time session restore)...")
