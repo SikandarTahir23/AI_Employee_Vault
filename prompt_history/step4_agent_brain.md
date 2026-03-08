@@ -1,7 +1,7 @@
 # Step 4 — Agent Brain: Autonomous Task Generator from High-Priority Emails
 
 **Date:** February 18, 2026
-**Author:** Tabraiz Haider
+**Author:** Sikandar Tahir
 **Project:** GIAIC Hackathon 0 — Personal AI Employee
 
 ---
@@ -142,7 +142,7 @@ This transforms the system from a passive data aggregator into a proactive task-
 ## How to Run
 
 ```bash
-cd "C:\Users\Tabraiz Haider\OneDrive\Desktop\AI_Employee_Vault"
+cd "C:\Users\Sikandar Tahir\OneDrive\Desktop\AI_Employee_Vault"
 python agent_brain.py
 ```
 

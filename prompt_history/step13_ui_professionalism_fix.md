@@ -1,7 +1,7 @@
 # Step 13 — UI Professionalism Fix
 
 **Date:** February 18, 2026
-**Author:** Tabraiz Haider
+**Author:** Sikandar Tahir
 **Project:** GIAIC Hackathon 0 — Personal AI Employee
 
 ---

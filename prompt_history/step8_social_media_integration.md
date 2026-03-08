@@ -1,7 +1,7 @@
 # Step 8 — Platinum Tier: Social Media Agent (Facebook & Instagram)
 
 **Date:** February 18, 2026
-**Author:** Tabraiz Haider
+**Author:** Sikandar Tahir
 **Project:** GIAIC Hackathon 0 — Personal AI Employee
 
 ---

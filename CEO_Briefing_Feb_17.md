@@ -1,5 +1,5 @@
 # Monday Morning CEO Briefing
-**Date:** February 17, 2026 | **Prepared by:** AI Employee Vault | **Classification:** Internal
+**Date:** February 17, 2026 | **Prepared by:** AI Employee Vault | **Lead Developer:** Sikandar Tahir | **Classification:** Internal
 
 ---
 

@@ -1,7 +1,7 @@
 # Step 12 — Platinum UI Overhaul: CEO Command Center
 
 **Date:** February 18, 2026
-**Author:** Tabraiz Haider
+**Author:** Sikandar Tahir
 **Project:** GIAIC Hackathon 0 — Personal AI Employee
 
 ---
@@ -89,7 +89,7 @@ Two-column layout combining all communication channels:
 ### 6. Premium Styling — Sticky Header
 
 - **Sticky header** with `position: sticky; top: 0; z-index: 999`
-- "Tabraiz Haider | CEO Command" in gradient text (purple → blue)
+- "Sikandar Tahir | CEO Command" in gradient text (purple → blue)
 - Subtitle with date and "AI Employee Vault"
 - Bottom border accent in #6C63FF
 - Dark gradient background matching sidebar
@@ -126,8 +126,8 @@ Two-column layout combining all communication channels:
 ```
 ┌────────────────────────┬──────────────────────────────────────────────┐
 │  Sidebar               │  ┌── STICKY HEADER ──────────────────────┐  │
-│  ──────────            │  │ Tabraiz Haider | CEO Command           │  │
-│  Tabraiz Haider        │  │ Platinum · Feb 18, 2026 · AI Vault    │  │
+│  ──────────            │  │ Sikandar Tahir | CEO Command           │  │
+│  Sikandar Tahir        │  │ Platinum · Feb 18, 2026 · AI Vault    │  │
 │  CEO COMMAND CENTER    │  └────────────────────────────────────────┘  │
 │                        │                                              │
 │  [Auto-Pilot: ON/OFF]  │  ┌── COMPANY HEALTH ────────────────────┐  │
@@ -157,7 +157,7 @@ Two-column layout combining all communication channels:
 │                        │  ─── CEO Briefing ─── (expandable)           │
 │                        │  ─── AI Recommendation ───                   │
 │                        │                                              │
-│                        │  Footer: Tabraiz Haider · CEO Command        │
+│                        │  Footer: Sikandar Tahir · CEO Command        │
 └────────────────────────┴──────────────────────────────────────────────┘
 ```
 

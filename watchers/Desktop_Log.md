@@ -6,11 +6,11 @@
 
 ### New File Detected: python watchers.md
 - Time: Tue Feb 17 02:19:43 2026
-- Content: Error reading file: [Errno 13] Permission denied: 'C:\\Users\\Tabraiz Haider\\OneDrive\\Desktop\\python watchers.md'
+- Content: Error reading file: [Errno 13] Permission denied: 'C:\\Users\\Sikandar Tahir\\OneDrive\\Desktop\\python watchers.md'
 
 ### New File Detected: agent_test.txt
 - Time: Tue Feb 17 02:19:59 2026
-- Content: Error reading file: [Errno 13] Permission denied: 'C:\\Users\\Tabraiz Haider\\OneDrive\\Desktop\\agent_test.txt'
+- Content: Error reading file: [Errno 13] Permission denied: 'C:\\Users\\Sikandar Tahir\\OneDrive\\Desktop\\agent_test.txt'
 
 ### New File Detected: apple.txt
 - Time: Tue Feb 17 02:24:45 2026

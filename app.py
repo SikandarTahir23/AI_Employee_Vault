@@ -21,7 +21,7 @@ _PY = sys.executable
 # PAGE CONFIG
 # ──────────────────────────────────────────────
 st.set_page_config(
-    page_title="Tabraiz Haider | CEO Command",
+    page_title="Sikandar Tahir | CEO Command",
     page_icon="briefcase",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -33,390 +33,592 @@ st.set_page_config(
 st_autorefresh(interval=30000, key="datarefresh")
 
 # ──────────────────────────────────────────────
-# CLEAN CSS — Professional SaaS Theme
+# CLEAN CSS — NEON VIP THEME (Deep Black + Neon Green)
 # ──────────────────────────────────────────────
 st.markdown("""
 <style>
     /* ── Base ── */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-    html, body, [class*="css"] {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+    
+    /* Force pure black background everywhere */
+    .stApp, [data-testid="stSidebar"], [data-testid="stSidebarContent"], .css-1d399kg, .css-1lcbmhc, .css-1r6s9pg, .css-1544r6n, .css-1234567 {
+        background-color: #000000 !important;
     }
+    
+    html, body, [class*="css"] {
+        font-family: 'Rajdhani', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background-color: #000000;
+    }
+    
+    /* Main container */
     div.block-container {
         padding-top: 1rem;
-        max-width: 1200px;
+        max-width: 1400px;
+        background-color: #000000;
     }
 
-    /* ── Sticky Header ── */
+    /* ── Neon Sticky Header ── */
     .sticky-header {
         position: sticky;
         top: 0; z-index: 999;
-        background: #0D1117;
-        padding: 12px 0;
-        border-bottom: 1px solid #1C2028;
+        background: linear-gradient(180deg, #000000 0%, #0a0f0a 100%);
+        padding: 16px 0;
+        border-bottom: 2px solid #39FF14;
+        box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
         margin: -1rem -1rem 0 -1rem;
         padding-left: 1rem; padding-right: 1rem;
     }
     .sticky-header h1 {
         margin: 0; padding: 0;
-        font-size: 1.1rem; font-weight: 600;
-        color: #E6EDF3;
-        letter-spacing: -0.01em;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.5rem; font-weight: 700;
+        background: linear-gradient(90deg, #39FF14, #00FF88);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: 0.05em;
+        text-shadow: 0 0 30px rgba(57, 255, 20, 0.5);
     }
     .sticky-header .subtitle {
-        color: #6E7681; font-size: 0.72rem;
-        margin-top: 1px; letter-spacing: 0.02em;
+        color: #39FF14; font-size: 0.75rem;
+        margin-top: 4px; letter-spacing: 0.1em;
+        font-weight: 500;
+        text-transform: uppercase;
     }
 
-    /* ── Metric cards — slim ── */
+    /* ── Metric cards — Neon style ── */
     div[data-testid="stMetric"] {
-        background: transparent;
-        border: 1px solid #1C2028;
-        border-radius: 8px;
-        padding: 14px 16px;
+        background: linear-gradient(135deg, #000000 0%, #051405 100%);
+        border: 1px solid #39FF14;
+        border-radius: 12px;
+        padding: 18px 20px;
+        box-shadow: 0 0 10px rgba(57, 255, 20, 0.2);
+        transition: all 0.3s ease;
+    }
+    div[data-testid="stMetric"]:hover {
+        box-shadow: 0 0 20px rgba(57, 255, 20, 0.4);
+        transform: translateY(-2px);
     }
     div[data-testid="stMetric"] label {
-        color: #6E7681 !important;
-        font-size: 0.68rem !important;
-        font-weight: 500 !important;
+        color: #39FF14 !important;
+        font-size: 0.7rem !important;
+        font-weight: 600 !important;
         text-transform: uppercase;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.1em;
     }
     div[data-testid="stMetric"] div[data-testid="stMetricValue"] {
-        font-size: 1.35rem !important;
-        font-weight: 600 !important;
-        color: #E6EDF3 !important;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.5rem !important;
+        font-weight: 700 !important;
+        color: #39FF14 !important;
+        text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
     }
     div[data-testid="stMetric"] div[data-testid="stMetricDelta"] {
-        font-size: 0.65rem !important;
+        font-size: 0.7rem !important;
+        color: #00FF88 !important;
     }
 
-    /* ── Sidebar — minimal ── */
+    /* ── Sidebar — Neon Command Panel ── */
     section[data-testid="stSidebar"] {
-        background: #0D1117 !important;
-        border-right: 1px solid #1C2028;
+        background: linear-gradient(180deg, #000000 0%, #0a0f0a 100%) !important;
+        border-right: 2px solid #39FF14;
+        box-shadow: 5px 0 20px rgba(57, 255, 20, 0.2);
     }
     section[data-testid="stSidebar"] .block-container {
         padding-top: 2rem;
     }
     .sb-name {
-        font-size: 0.92rem; font-weight: 600; color: #E6EDF3;
-        letter-spacing: -0.01em;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.1rem; font-weight: 700;
+        background: linear-gradient(90deg, #39FF14, #00FF88);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: 0.05em;
     }
     .sb-role {
-        font-size: 0.65rem; color: #6E7681; font-weight: 500;
-        text-transform: uppercase; letter-spacing: 0.08em;
-        margin-top: 1px;
-    }
-    .sb-divider {
-        border: none; height: 1px; background: #1C2028; margin: 14px 0;
-    }
-    .sb-label {
-        color: #6E7681; font-size: 0.65rem; font-weight: 500;
-        text-transform: uppercase; letter-spacing: 0.08em;
-        margin-bottom: 2px;
-    }
-    .sb-value {
-        color: #C9D1D9; font-size: 0.82rem; font-weight: 500;
-    }
-    .sb-badge {
-        display: inline-block; font-size: 0.6rem; font-weight: 600;
-        padding: 2px 8px; border-radius: 10px;
-        letter-spacing: 0.04em;
-    }
-    .sb-badge-live { background: #1B3D2F; color: #3FB950; }
-    .sb-badge-on   { background: #1C1D3E; color: #A78BFA; }
-    .sb-badge-off  { background: #161B22; color: #6E7681; }
-    .sb-footer {
-        color: #484F58; font-size: 0.62rem; text-align: center; margin-top: 8px;
-    }
-
-    /* ── Section headers — understated ── */
-    .section-header {
-        font-size: 0.78rem; font-weight: 600; color: #8B949E;
-        text-transform: uppercase; letter-spacing: 0.06em;
-        margin: 32px 0 12px 0;
-        padding-bottom: 8px;
-        border-bottom: 1px solid #1C2028;
-    }
-
-    /* ── Unified card style ── */
-    .card {
-        background: #0D1117;
-        border: 1px solid #1C2028;
-        border-radius: 8px;
-        padding: 14px 16px;
-        margin-bottom: 10px;
-    }
-    .card-title {
-        color: #E6EDF3; font-weight: 500; font-size: 0.84rem;
-        line-height: 1.35;
-    }
-    .card-meta {
-        color: #6E7681; font-size: 0.7rem; margin-top: 3px;
-    }
-    .card-body {
-        color: #8B949E; font-size: 0.76rem; margin-top: 6px;
-        line-height: 1.45;
-    }
-
-    /* ── Tags — subtle ── */
-    .tag {
-        display: inline-block;
-        font-size: 0.58rem; font-weight: 600;
-        padding: 1px 6px; border-radius: 3px;
-        letter-spacing: 0.04em; margin-right: 6px;
-        vertical-align: middle;
-    }
-    .tag-ai     { background: #1C1D3E; color: #A78BFA; }
-    .tag-social { background: #0C2D48; color: #58A6FF; }
-    .tag-finance{ background: #2D2306; color: #E3B341; }
-    .tag-plan   { background: #1C1D3E; color: #A78BFA; }
-
-    /* ── Priority badges ── */
-    .pri {
-        display: inline-block; font-size: 0.58rem; font-weight: 600;
-        padding: 1px 6px; border-radius: 3px;
-        letter-spacing: 0.04em; margin-right: 6px;
-        vertical-align: middle;
-    }
-    .pri-high   { background: #3D1518; color: #F85149; }
-    .pri-medium { background: #2D2306; color: #E3B341; }
-    .pri-low    { background: #1B3D2F; color: #3FB950; }
-
-    /* ── Kanban ── */
-    .kanban-col-header {
-        font-size: 0.68rem; font-weight: 600;
-        text-transform: uppercase; letter-spacing: 0.06em;
-        padding: 8px 12px;
-        border: 1px solid #1C2028;
-        border-radius: 8px 8px 0 0;
-        background: #0D1117;
-    }
-    .kanban-col-header .dot {
-        display: inline-block; width: 8px; height: 8px;
-        border-radius: 50%; margin-right: 6px;
-        vertical-align: middle;
-    }
-    .dot-todo  { background: #D29922; }
-    .dot-doing { background: #58A6FF; }
-    .dot-done  { background: #3FB950; }
-    .kanban-col-header .count {
-        color: #6E7681; font-weight: 500; margin-left: 4px;
-    }
-    .kanban-body {
-        border: 1px solid #1C2028;
-        border-top: none;
-        border-radius: 0 0 8px 8px;
-        padding: 10px; min-height: 180px;
-        background: transparent;
-    }
-    .kanban-card {
-        background: #0D1117;
-        border: 1px solid #1C2028;
-        border-radius: 6px;
-        padding: 10px 12px;
-        margin-bottom: 8px;
-    }
-    .kanban-card-title {
-        color: #C9D1D9; font-weight: 500; font-size: 0.78rem;
-    }
-    .kanban-card-meta {
-        color: #484F58; font-size: 0.65rem; margin-top: 3px;
-    }
-
-    /* ── Financial row ── */
-    .fin-row {
-        display: flex; gap: 16px; flex-wrap: wrap;
-        margin-bottom: 8px;
-    }
-    .fin-item {
-        flex: 1; min-width: 120px;
-        border: 1px solid #1C2028; border-radius: 8px;
-        padding: 12px 14px;
-        background: transparent;
-    }
-    .fin-value {
-        font-size: 1.1rem; font-weight: 600; color: #E6EDF3;
-    }
-    .fin-value.green { color: #3FB950; }
-    .fin-value.amber { color: #E3B341; }
-    .fin-value.blue  { color: #58A6FF; }
-    .fin-label {
-        color: #6E7681; font-size: 0.62rem; font-weight: 500;
-        text-transform: uppercase; letter-spacing: 0.05em;
+        color: #39FF14; font-size: 0.7rem; font-weight: 600;
+        text-transform: uppercase; letter-spacing: 0.15em;
         margin-top: 2px;
     }
+    .sb-divider {
+        border: none; height: 2px; 
+        background: linear-gradient(90deg, #39FF14, transparent);
+        margin: 16px 0;
+    }
+    .sb-label {
+        color: #39FF14; font-size: 0.68rem; font-weight: 600;
+        text-transform: uppercase; letter-spacing: 0.12em;
+        margin-bottom: 4px;
+    }
+    .sb-value {
+        color: #C9D1D9; font-size: 0.85rem; font-weight: 500;
+    }
+    .sb-badge {
+        display: inline-block; font-size: 0.65rem; font-weight: 700;
+        padding: 3px 10px; border-radius: 4px;
+        letter-spacing: 0.1em;
+        border: 1px solid #39FF14;
+    }
+    .sb-badge-live { 
+        background: rgba(57, 255, 20, 0.2); 
+        color: #39FF14;
+        box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+    }
+    .sb-badge-on   { 
+        background: rgba(57, 255, 20, 0.3); 
+        color: #39FF14;
+        box-shadow: 0 0 15px rgba(57, 255, 20, 0.5);
+    }
+    .sb-badge-off  { 
+        background: #0a0a0a; 
+        color: #4a4a4a;
+        border-color: #333;
+    }
+    .sb-footer {
+        color: #39FF14; font-size: 0.65rem; text-align: center; margin-top: 8px;
+        font-weight: 500; letter-spacing: 0.05em;
+    }
 
-    /* ── Plan steps ── */
-    .plan-step {
-        color: #8B949E; font-size: 0.76rem; margin-left: 8px;
+    /* ── Section headers — Neon style ── */
+    .section-header {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 0.85rem; font-weight: 700;
+        color: #39FF14;
+        text-transform: uppercase; letter-spacing: 0.15em;
+        margin: 40px 0 16px 0;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #39FF14;
+        text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+    }
+
+    /* ── Unified card style — Neon ── */
+    .card {
+        background: linear-gradient(135deg, #000000 0%, #051405 100%);
+        border: 1px solid #39FF14;
+        border-radius: 10px;
+        padding: 16px 18px;
+        margin-bottom: 12px;
+        box-shadow: 0 0 8px rgba(57, 255, 20, 0.15);
+        transition: all 0.2s ease;
+    }
+    .card:hover {
+        box-shadow: 0 0 15px rgba(57, 255, 20, 0.3);
+        border-color: #00FF88;
+    }
+    .card-title {
+        color: #39FF14; font-weight: 600; font-size: 0.88rem;
+        line-height: 1.4;
+        font-family: 'Rajdhani', sans-serif;
+    }
+    .card-meta {
+        color: #6a6a6a; font-size: 0.72rem; margin-top: 4px;
+    }
+    .card-body {
+        color: #888; font-size: 0.8rem; margin-top: 8px;
         line-height: 1.5;
     }
 
-    /* ── Charts ── */
-    .js-plotly-plot { border-radius: 8px; }
-
-    /* ── Expanders ── */
-    .streamlit-expanderHeader {
-        font-weight: 600 !important; color: #C9D1D9 !important;
-        font-size: 0.82rem !important;
+    /* ── Tags — Neon style ── */
+    .tag {
+        display: inline-block;
+        font-size: 0.62rem; font-weight: 700;
+        padding: 2px 8px; border-radius: 4px;
+        letter-spacing: 0.08em; margin-right: 8px;
+        vertical-align: middle;
+        border: 1px solid;
+    }
+    .tag-ai     { 
+        background: rgba(167, 139, 250, 0.15); 
+        color: #A78BFA; 
+        border-color: #A78BFA;
+        box-shadow: 0 0 8px rgba(167, 139, 250, 0.3);
+    }
+    .tag-social { 
+        background: rgba(88, 166, 255, 0.15); 
+        color: #58A6FF; 
+        border-color: #58A6FF;
+        box-shadow: 0 0 8px rgba(88, 166, 255, 0.3);
+    }
+    .tag-finance{ 
+        background: rgba(227, 179, 65, 0.15); 
+        color: #E3B341; 
+        border-color: #E3B341;
+        box-shadow: 0 0 8px rgba(227, 179, 65, 0.3);
+    }
+    .tag-plan   { 
+        background: rgba(167, 139, 250, 0.15); 
+        color: #A78BFA; 
+        border-color: #A78BFA;
+        box-shadow: 0 0 8px rgba(167, 139, 250, 0.3);
     }
 
-    /* ── Footer ── */
-    .footer-text {
-        text-align: center; color: #484F58; font-size: 0.65rem;
-        margin-top: 48px; padding: 14px 0;
-        border-top: 1px solid #1C2028;
+    /* ── Priority badges — Neon ── */
+    .pri {
+        display: inline-block; font-size: 0.62rem; font-weight: 700;
+        padding: 2px 8px; border-radius: 4px;
+        letter-spacing: 0.08em; margin-right: 8px;
+        vertical-align: middle;
+        border: 1px solid;
+    }
+    .pri-high   { 
+        background: rgba(248, 81, 73, 0.15); 
+        color: #F85149; 
+        border-color: #F85149;
+        box-shadow: 0 0 8px rgba(248, 81, 73, 0.3);
+    }
+    .pri-medium { 
+        background: rgba(227, 179, 65, 0.15); 
+        color: #E3B341; 
+        border-color: #E3B341;
+        box-shadow: 0 0 8px rgba(227, 179, 65, 0.3);
+    }
+    .pri-low    { 
+        background: rgba(63, 185, 80, 0.15); 
+        color: #3FB950; 
+        border-color: #3FB950;
+        box-shadow: 0 0 8px rgba(63, 185, 80, 0.3);
     }
 
-    /* ── Console Log ── */
-    .console-log {
-        background: #010409;
-        border: 1px solid #1C2028;
+    /* ── Kanban — Neon Command Board ── */
+    .kanban-col-header {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 0.72rem; font-weight: 700;
+        text-transform: uppercase; letter-spacing: 0.1em;
+        padding: 10px 14px;
+        border: 2px solid #39FF14;
+        border-radius: 10px 10px 0 0;
+        background: linear-gradient(180deg, #0a0f0a 0%, #000000 100%);
+        box-shadow: 0 0 10px rgba(57, 255, 20, 0.2);
+    }
+    .kanban-col-header .dot {
+        display: inline-block; width: 10px; height: 10px;
+        border-radius: 50%; margin-right: 8px;
+        vertical-align: middle;
+        box-shadow: 0 0 8px currentColor;
+    }
+    .dot-todo  { background: #F0883E; color: #F0883E; }
+    .dot-doing { background: #58A6FF; color: #58A6FF; }
+    .dot-done  { background: #3FB950; color: #3FB950; }
+    .kanban-col-header .count {
+        color: #39FF14; font-weight: 600; margin-left: 6px;
+        background: rgba(57, 255, 20, 0.2);
+        padding: 2px 8px; border-radius: 4px;
+    }
+    .kanban-body {
+        border: 2px solid #39FF14;
+        border-top: none;
+        border-radius: 0 0 10px 10px;
+        padding: 12px; min-height: 200px;
+        background: #000000;
+        box-shadow: inset 0 0 20px rgba(57, 255, 20, 0.1);
+    }
+    .kanban-card {
+        background: linear-gradient(135deg, #000000 0%, #051405 100%);
+        border: 1px solid #39FF14;
         border-radius: 8px;
-        padding: 14px 16px;
+        padding: 12px 14px;
+        margin-bottom: 10px;
+        box-shadow: 0 0 8px rgba(57, 255, 20, 0.15);
+        transition: all 0.2s ease;
+    }
+    .kanban-card:hover {
+        box-shadow: 0 0 15px rgba(57, 255, 20, 0.3);
+        transform: translateX(4px);
+    }
+    .kanban-card-title {
+        color: #39FF14; font-weight: 600; font-size: 0.82rem;
+        font-family: 'Rajdhani', sans-serif;
+    }
+    .kanban-card-meta {
+        color: #4a4a4a; font-size: 0.68rem; margin-top: 4px;
+    }
+
+    /* ── Financial row — Neon ── */
+    .fin-row {
+        display: flex; gap: 20px; flex-wrap: wrap;
+        margin-bottom: 12px;
+    }
+    .fin-item {
+        flex: 1; min-width: 140px;
+        border: 2px solid #39FF14;
+        border-radius: 12px;
+        padding: 16px 18px;
+        background: linear-gradient(135deg, #000000 0%, #051405 100%);
+        box-shadow: 0 0 12px rgba(57, 255, 20, 0.2);
+        transition: all 0.2s ease;
+    }
+    .fin-item:hover {
+        box-shadow: 0 0 20px rgba(57, 255, 20, 0.4);
+        transform: translateY(-3px);
+    }
+    .fin-value {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.25rem; font-weight: 700;
+        text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+    }
+    .fin-value.green { color: #39FF14; }
+    .fin-value.amber { color: #E3B341; text-shadow: 0 0 10px rgba(227, 179, 65, 0.5); }
+    .fin-value.blue  { color: #58A6FF; text-shadow: 0 0 10px rgba(88, 166, 255, 0.5); }
+    .fin-label {
+        color: #39FF14; font-size: 0.65rem; font-weight: 600;
+        text-transform: uppercase; letter-spacing: 0.12em;
+        margin-top: 4px;
+    }
+
+    /* ── Plan steps — Neon ── */
+    .plan-step {
+        color: #888; font-size: 0.8rem; margin-left: 10px;
+        line-height: 1.6;
+        padding-left: 12px;
+        border-left: 2px solid #39FF14;
+    }
+
+    /* ── Charts ── */
+    .js-plotly-plot { border-radius: 12px; }
+
+    /* ── Expanders — Neon ── */
+    .streamlit-expanderHeader {
+        font-family: 'Orbitron', sans-serif;
+        font-weight: 600 !important; 
+        color: #39FF14 !important;
+        font-size: 0.85rem !important;
+        letter-spacing: 0.08em;
+    }
+
+    /* ── Footer — Neon ── */
+    .footer-text {
+        text-align: center; 
+        color: #39FF14; 
+        font-size: 0.7rem;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        margin-top: 48px; 
+        padding: 16px 0;
+        border-top: 2px solid #39FF14;
+        text-transform: uppercase;
+    }
+
+    /* ── Console Log — Neon Terminal ── */
+    .console-log {
+        background: #000000;
+        border: 2px solid #39FF14;
+        border-radius: 10px;
+        padding: 16px 18px;
         font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
-        font-size: 0.72rem;
-        color: #8B949E;
-        max-height: 360px;
+        font-size: 0.75rem;
+        color: #39FF14;
+        max-height: 400px;
         overflow-y: auto;
         white-space: pre-wrap;
         word-break: break-all;
-        line-height: 1.55;
+        line-height: 1.6;
+        box-shadow: inset 0 0 30px rgba(57, 255, 20, 0.2);
     }
 
-    /* ── Draft Card ── */
+    /* ── Draft Card — Neon ── */
     .draft-card {
-        background: #0D1117;
-        border: 1px solid #1C2028;
-        border-radius: 8px;
-        padding: 14px 16px;
-        margin-bottom: 10px;
-        transition: border-color 0.15s;
+        background: linear-gradient(135deg, #000000 0%, #051405 100%);
+        border: 1px solid #39FF14;
+        border-radius: 10px;
+        padding: 16px 18px;
+        margin-bottom: 12px;
+        transition: all 0.2s ease;
+        box-shadow: 0 0 8px rgba(57, 255, 20, 0.15);
     }
     .draft-card:hover {
-        border-color: #30363D;
+        border-color: #00FF88;
+        box-shadow: 0 0 15px rgba(57, 255, 20, 0.3);
     }
     .draft-card .draft-title {
-        color: #E6EDF3; font-weight: 500; font-size: 0.84rem;
+        color: #39FF14; font-weight: 600; font-size: 0.88rem;
+        font-family: 'Rajdhani', sans-serif;
     }
     .draft-card .draft-meta {
-        color: #6E7681; font-size: 0.68rem; margin-top: 3px;
+        color: #6a6a6a; font-size: 0.72rem; margin-top: 4px;
     }
     .draft-card .draft-status {
-        display: inline-block; font-size: 0.58rem; font-weight: 600;
-        padding: 1px 6px; border-radius: 3px;
-        letter-spacing: 0.04em;
+        display: inline-block; font-size: 0.62rem; font-weight: 700;
+        padding: 2px 8px; border-radius: 4px;
+        letter-spacing: 0.08em;
+        border: 1px solid;
     }
-    .draft-status-draft { background: #0C2D48; color: #58A6FF; }
-    .draft-status-posted { background: #1B3D2F; color: #3FB950; }
+    .draft-status-draft { 
+        background: rgba(88, 166, 255, 0.15); 
+        color: #58A6FF; 
+        border-color: #58A6FF;
+        box-shadow: 0 0 8px rgba(88, 166, 255, 0.3);
+    }
+    .draft-status-posted { 
+        background: rgba(57, 255, 20, 0.2); 
+        color: #39FF14; 
+        border-color: #39FF14;
+        box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
+    }
 
-    /* ── Watcher Status ── */
+    /* ── Watcher Status — Neon ── */
     .status-running {
-        display: inline-block; font-size: 0.6rem; font-weight: 600;
-        padding: 2px 8px; border-radius: 10px;
-        background: #1B3D2F; color: #3FB950;
-        letter-spacing: 0.04em;
+        display: inline-block; font-size: 0.65rem; font-weight: 700;
+        padding: 3px 10px; border-radius: 4px;
+        background: rgba(57, 255, 20, 0.2); 
+        color: #39FF14;
+        letter-spacing: 0.1em;
+        border: 1px solid #39FF14;
+        box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
     }
     .status-stopped {
-        display: inline-block; font-size: 0.6rem; font-weight: 600;
-        padding: 2px 8px; border-radius: 10px;
-        background: #161B22; color: #6E7681;
-        letter-spacing: 0.04em;
+        display: inline-block; font-size: 0.65rem; font-weight: 600;
+        padding: 3px 10px; border-radius: 4px;
+        background: #0a0a0a; 
+        color: #4a4a4a;
+        letter-spacing: 0.1em;
+        border: 1px solid #333;
     }
 
-    /* ── Channel Cards (LinkedIn / WhatsApp) ── */
+    /* ── Channel Cards — Neon Command Stations ── */
     .channel-card {
-        background: #0D1117;
-        border: 1px solid #21262D;
-        border-radius: 10px;
-        padding: 18px 20px;
+        background: linear-gradient(135deg, #000000 0%, #051405 100%);
+        border: 2px solid #39FF14;
+        border-radius: 12px;
+        padding: 20px 22px;
         height: 100%;
+        box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
+        transition: all 0.3s ease;
+    }
+    .channel-card:hover {
+        box-shadow: 0 0 25px rgba(57, 255, 20, 0.4);
+        transform: translateY(-3px);
     }
     .channel-card-header {
-        display: flex; align-items: center; gap: 10px;
-        margin-bottom: 12px;
+        display: flex; align-items: center; gap: 12px;
+        margin-bottom: 14px;
     }
     .channel-icon {
-        font-size: 1.4rem; line-height: 1;
+        font-size: 1.6rem; line-height: 1;
+        filter: drop-shadow(0 0 8px rgba(57, 255, 20, 0.5));
     }
     .channel-title {
-        color: #E6EDF3; font-weight: 600; font-size: 0.88rem;
+        font-family: 'Orbitron', sans-serif;
+        color: #39FF14; font-weight: 700; font-size: 0.95rem;
+        letter-spacing: 0.05em;
     }
     .channel-status {
-        font-size: 0.62rem; font-weight: 600;
-        padding: 2px 8px; border-radius: 10px;
-        letter-spacing: 0.04em;
+        font-size: 0.65rem; font-weight: 700;
+        padding: 3px 10px; border-radius: 4px;
+        letter-spacing: 0.1em;
         margin-left: auto;
+        border: 1px solid;
     }
-    .channel-status-ready { background: #1B3D2F; color: #3FB950; }
-    .channel-status-idle  { background: #161B22; color: #6E7681; }
+    .channel-status-ready { 
+        background: rgba(57, 255, 20, 0.2); 
+        color: #39FF14; 
+        border-color: #39FF14;
+        box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
+    }
+    .channel-status-idle  { 
+        background: #0a0a0a; 
+        color: #4a4a4a; 
+        border-color: #333;
+    }
     .channel-stat {
-        color: #6E7681; font-size: 0.7rem; margin-bottom: 4px;
+        color: #6a6a6a; font-size: 0.75rem; margin-bottom: 6px;
     }
-    .channel-stat strong { color: #C9D1D9; }
+    .channel-stat strong { color: #39FF14; }
 
-    /* ── WhatsApp Task List ── */
+    /* ── WhatsApp Task List — Neon ── */
     .wa-task {
-        background: #0D1117;
-        border: 1px solid #1C2028;
+        background: linear-gradient(135deg, #000000 0%, #051405 100%);
+        border: 1px solid #25D366;
         border-left: 3px solid #25D366;
-        border-radius: 6px;
-        padding: 10px 14px;
-        margin-bottom: 8px;
+        border-radius: 8px;
+        padding: 12px 16px;
+        margin-bottom: 10px;
+        box-shadow: 0 0 8px rgba(37, 211, 102, 0.2);
     }
-    .wa-task-title { color: #E6EDF3; font-size: 0.8rem; font-weight: 500; }
-    .wa-task-meta  { color: #6E7681; font-size: 0.66rem; margin-top: 2px; }
+    .wa-task-title { 
+        color: #39FF14; 
+        font-size: 0.85rem; 
+        font-weight: 600; 
+        font-family: 'Rajdhani', sans-serif;
+    }
+    .wa-task-meta  { 
+        color: #6a6a6a; 
+        font-size: 0.7rem; 
+        margin-top: 4px; 
+    }
 
-    /* ── AI Post Creator ── */
+    /* ── AI Post Creator — Neon Command Module ── */
     .ai-creator-wrap {
-        background: linear-gradient(135deg, #0D1117 0%, #111827 100%);
-        border: 1px solid #21262D;
-        border-radius: 12px;
-        padding: 22px 24px;
-        margin-bottom: 16px;
+        background: linear-gradient(135deg, #000000 0%, #0a1f0a 100%);
+        border: 2px solid #39FF14;
+        border-radius: 14px;
+        padding: 24px 26px;
+        margin-bottom: 18px;
         position: relative;
         overflow: hidden;
+        box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
     }
     .ai-creator-wrap::before {
         content: '';
         position: absolute;
         top: 0; left: 0; right: 0;
-        height: 2px;
-        background: linear-gradient(90deg, #A78BFA, #58A6FF, #3FB950);
+        height: 3px;
+        background: linear-gradient(90deg, #39FF14, #00FF88, #58A6FF);
+        box-shadow: 0 0 15px rgba(57, 255, 20, 0.6);
     }
     .ai-creator-title {
-        color: #E6EDF3;
-        font-size: 0.9rem;
-        font-weight: 600;
-        margin-bottom: 4px;
-        letter-spacing: -0.01em;
+        color: #39FF14;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 6px;
+        letter-spacing: 0.05em;
+        text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
     }
     .ai-creator-sub {
-        color: #6E7681;
-        font-size: 0.7rem;
-        margin-bottom: 16px;
+        color: #6a6a6a;
+        font-size: 0.75rem;
+        margin-bottom: 18px;
     }
     .ai-preview-box {
-        background: #010409;
-        border: 1px solid #21262D;
-        border-radius: 8px;
-        padding: 16px;
-        margin-top: 12px;
-        font-size: 0.78rem;
-        color: #C9D1D9;
-        line-height: 1.65;
+        background: #000000;
+        border: 2px solid #39FF14;
+        border-radius: 10px;
+        padding: 18px;
+        margin-top: 14px;
+        font-size: 0.82rem;
+        color: #39FF14;
+        line-height: 1.7;
         white-space: pre-wrap;
+        font-family: 'Rajdhani', sans-serif;
+        box-shadow: inset 0 0 20px rgba(57, 255, 20, 0.15);
     }
     .ai-badge {
-        display: inline-flex; align-items: center; gap: 4px;
-        font-size: 0.58rem; font-weight: 700;
-        padding: 2px 8px; border-radius: 10px;
-        background: linear-gradient(90deg, #1a0d2e, #0c1a2e);
-        color: #A78BFA;
-        letter-spacing: 0.06em;
-        border: 1px solid #3d2a6e;
+        display: inline-flex; align-items: center; gap: 6px;
+        font-size: 0.62rem; font-weight: 700;
+        padding: 3px 10px; border-radius: 4px;
+        background: linear-gradient(90deg, rgba(57, 255, 20, 0.3), rgba(0, 255, 136, 0.2));
+        color: #39FF14;
+        letter-spacing: 0.1em;
+        border: 1px solid #39FF14;
+        box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
+    }
+    
+    /* Button styling for Neon theme */
+    .stButton > button {
+        background: linear-gradient(135deg, #0a1f0a 0%, #000000 100%);
+        color: #39FF14;
+        border: 1px solid #39FF14;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        transition: all 0.3s ease;
+    }
+    .stButton > button:hover {
+        background: linear-gradient(135deg, #0f2f0f 0%, #0a1f0a 100%);
+        box-shadow: 0 0 15px rgba(57, 255, 20, 0.4);
+        border-color: #00FF88;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -765,7 +967,7 @@ _data_source = "Live JSON" if ACCOUNTING_FILE.exists() else "Mock Data"
 # SIDEBAR — Minimalist
 # ──────────────────────────────────────────────
 with st.sidebar:
-    st.markdown('<p class="sb-name">Tabraiz Haider</p>', unsafe_allow_html=True)
+    st.markdown('<p class="sb-name">Sikandar Tahir</p>', unsafe_allow_html=True)
     st.markdown('<p class="sb-role">CEO Command</p>', unsafe_allow_html=True)
     st.markdown('<hr class="sb-divider">', unsafe_allow_html=True)
 
@@ -972,11 +1174,11 @@ with st.sidebar:
     )
 
 # ──────────────────────────────────────────────
-# STICKY HEADER — Thin, clean
+# STICKY HEADER — Neon Commander
 # ──────────────────────────────────────────────
 st.markdown(
     f"""<div class="sticky-header">
-        <h1>Tabraiz Haider &nbsp;|&nbsp; CEO Command</h1>
+        <h1>NEON COMMANDER: SIKANDAR TAHIR EXECUTIVE DASHBOARD</h1>
         <div class="subtitle">{datetime.now().strftime('%A, %B %d, %Y')} &middot; AI Employee Vault</div>
     </div>""",
     unsafe_allow_html=True,
@@ -1095,19 +1297,20 @@ render_kanban(col_doing, "dot-doing", "In Progress", len(kanban_doing), kanban_d
 render_kanban(col_done, "dot-done", "Done", len(kanban_done), kanban_done)
 
 # ──────────────────────────────────────────────
-# UNIFIED COMMUNICATION HUB
+# UNIFIED COMMUNICATION HUB — 3 Column Neon Layout
 # ──────────────────────────────────────────────
 st.markdown('<div class="section-header">Communications</div>', unsafe_allow_html=True)
 
-# ── Channel Status Row ──
-ch_li, ch_wa = st.columns(2)
+# ── Three Column Layout: LinkedIn | WhatsApp | Gmail ──
+col_li, col_wa, col_gmail = st.columns(3)
 
 # Count approved items for each channel
 _approved_li = [f for f in APPROVED_DIR.glob("LinkedIn_Post*.md")] if APPROVED_DIR.exists() else []
 _approved_wa = [f for f in APPROVED_DIR.glob("WA_*.md")
                 if f.name != ".gitkeep"] if APPROVED_DIR.exists() else []
 
-with ch_li:
+# ── COLUMN 1: LINKEDIN ──
+with col_li:
     st.markdown(
         f'<div class="channel-card">'
         f'<div class="channel-card-header">'
@@ -1120,6 +1323,27 @@ with ch_li:
         f'</div>',
         unsafe_allow_html=True,
     )
+    
+    # LinkedIn Cookie Login Section
+    with st.expander("🔐 LinkedIn Cookie Login"):
+        st.caption("Enter your LinkedIn session cookie for automated posting")
+        li_cookie = st.text_area(
+            "Session Cookie",
+            placeholder="Paste your LinkedIn li_at session cookie here...",
+            height=80,
+            key="li_cookie_input",
+            label_visibility="collapsed",
+        )
+        if st.button("Save Cookie", key="save_li_cookie", use_container_width=True):
+            if li_cookie.strip():
+                cookie_file = BASE_DIR / "linkedin_cookie.json"
+                cookie_data = {"li_at": li_cookie.strip(), "updated": datetime.now().isoformat()}
+                cookie_file.write_text(json.dumps(cookie_data, indent=2), encoding="utf-8")
+                st.success("LinkedIn cookie saved!")
+                st.session_state["li_cookie_saved"] = True
+            else:
+                st.warning("Please enter a valid cookie")
+    
     if st.button("▶ Run LinkedIn Poster", key="run_li_poster_btn", use_container_width=True):
         with st.status("Running LinkedIn Poster...", expanded=True) as _li_st:
             st.write("Launching isolated process...")
@@ -1141,8 +1365,8 @@ with ch_li:
                 st.write(str(_e))
                 _li_st.update(label="Failed", state="error")
 
-with ch_wa:
-    # Check whatsapp_sender.py exists as proxy for "Ready"
+# ── COLUMN 2: WHATSAPP ──
+with col_wa:
     _wa_ready = (BASE_DIR / "whatsapp_sender.py").exists()
     _wa_status_cls = "channel-status-ready" if _wa_ready else "channel-status-idle"
     _wa_status_txt = "READY" if _wa_ready else "NOT FOUND"
@@ -1158,6 +1382,26 @@ with ch_wa:
         f'</div>',
         unsafe_allow_html=True,
     )
+    
+    # WhatsApp QR Scanner Section
+    with st.expander("📱 WhatsApp QR Scanner"):
+        st.caption("Scan QR code to authenticate WhatsApp session")
+        qr_col1, qr_col2 = st.columns(2)
+        with qr_col1:
+            if st.button("Generate QR", key="gen_wa_qr", use_container_width=True):
+                st.session_state["wa_qr_requested"] = True
+                st.info("QR code will appear when whatsapp_sender.py runs")
+        with qr_col2:
+            if st.button("Refresh Status", key="refresh_wa_qr", use_container_width=True):
+                st.rerun()
+        if st.session_state.get("wa_qr_requested"):
+            st.markdown(
+                '<div style="background:#000000;border:2px solid #25D366;border-radius:8px;'
+                'padding:20px;text-align:center;color:#39FF14;font-size:0.75rem;">'
+                '📷 QR Scanner Active<br/>Open WhatsApp on your phone and scan</div>',
+                unsafe_allow_html=True,
+            )
+    
     if st.button("▶ Run WhatsApp Sender", key="run_wa_sender_btn",
                  use_container_width=True, disabled=not _wa_ready):
         with st.status("Running WhatsApp Sender...", expanded=True) as _wa_st:
@@ -1179,6 +1423,102 @@ with ch_wa:
             except Exception as _e:
                 st.write(str(_e))
                 _wa_st.update(label="Failed", state="error")
+
+# ── COLUMN 3: GMAIL ──
+with col_gmail:
+    st.markdown(
+        f'<div class="channel-card">'
+        f'<div class="channel-card-header">'
+        f'<span class="channel-icon">&#x1F4E7;</span>'
+        f'<span class="channel-title">Gmail</span>'
+        f'<span class="channel-status channel-status-ready">SYNC</span>'
+        f'</div>'
+        f'<div class="channel-stat">Last 5 emails displayed</div>'
+        f'<div class="channel-stat">Auto-logging enabled</div>'
+        f'</div>',
+        unsafe_allow_html=True,
+    )
+    
+    # Gmail Integration Section
+    with st.expander("📧 Gmail Configuration"):
+        st.caption("Configure Gmail API access with credentials.json")
+        cred_file = BASE_DIR / "credentials.json"
+        if cred_file.exists():
+            st.success("✅ credentials.json found")
+            if st.button("Sync Gmail", key="sync_gmail_btn", use_container_width=True):
+                st.session_state["gmail_sync_requested"] = True
+        else:
+            st.warning("⚠️ credentials.json not found")
+            st.caption("Place your Gmail API credentials.json in the root directory")
+    
+    # Gmail Email Display Section
+    if st.session_state.get("gmail_sync_requested") or cred_file.exists():
+        with st.expander("📬 Recent Emails (Last 5)", expanded=True):
+            try:
+                from google.oauth2.credentials import Credentials
+                from google_auth_oauthlib.flow import InstalledAppFlow
+                from google.auth.transport.requests import Request
+                from googleapiclient.discovery import build
+                import base64
+                from email import message_from_bytes
+                
+                SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
+                token_file = BASE_DIR / "token.json"
+                creds = None
+                
+                if token_file.exists():
+                    creds = Credentials.from_authorized_user_file(str(token_file), SCOPES)
+                
+                if not creds or not creds.valid:
+                    if creds and creds.expired and creds.refresh_token:
+                        creds.refresh(Request())
+                        token_file.write_text(creds.to_json(), encoding="utf-8")
+                    elif cred_file.exists():
+                        flow = InstalledAppFlow.from_client_secrets_file(str(cred_file), SCOPES)
+                        creds = flow.run_local_server(port=0, open_browser=False)
+                        token_file.write_text(creds.to_json(), encoding="utf-8")
+                        st.success("Gmail authenticated!")
+                
+                if creds:
+                    service = build('gmail', 'v1', credentials=creds)
+                    results = service.users().messages().list(userId='me', maxResults=5).execute()
+                    messages = results.get('messages', [])
+                    
+                    if messages:
+                        for msg in messages:
+                            msg_detail = service.users().messages().get(
+                                userId='me', id=msg['id'], format='full'
+                            ).execute()
+                            
+                            headers = msg_detail['payload']['headers']
+                            subject = next((h['value'] for h in headers if h['name'] == 'Subject'), 'No Subject')
+                            sender = next((h['value'] for h in headers if h['name'] == 'From'), 'Unknown')
+                            date = next((h['value'] for h in headers if h['name'] == 'Date'), 'Unknown')
+                            
+                            # Create log file for this email
+                            log_dir = BASE_DIR / "AI_EMPLOYEE_VAULT" / "gmail_logs"
+                            log_dir.mkdir(parents=True, exist_ok=True)
+                            log_file = log_dir / f"email_{msg['id']}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md"
+                            log_content = f"# Gmail Email Log\n\n**ID:** {msg['id']}\n**From:** {sender}\n**Subject:** {subject}\n**Date:** {date}\n**Synced:** {datetime.now().isoformat()}\n"
+                            log_file.write_text(log_content, encoding="utf-8")
+                            
+                            st.markdown(
+                                f'<div class="card">'
+                                f'<div class="card-title">{subject}</div>'
+                                f'<div class="card-meta">From: {sender}</div>'
+                                f'<div class="card-meta">Date: {date[:20] if len(date) > 20 else date}</div>'
+                                f'</div>',
+                                unsafe_allow_html=True,
+                            )
+                    else:
+                        st.info("No emails found")
+                else:
+                    st.warning("Gmail authentication required")
+            except Exception as e:
+                st.error(f"Gmail sync error: {e}")
+    else:
+        with st.expander("📬 Recent Emails (Last 5)"):
+            st.info("Click 'Sync Gmail' to fetch recent emails")
 
 st.markdown("<br>", unsafe_allow_html=True)
 
@@ -1673,7 +2013,7 @@ if rec_match:
 # ──────────────────────────────────────────────
 st.markdown(
     '<p class="footer-text">'
-    'Tabraiz Haider &middot; CEO Command &middot; AI Employee Vault &middot; GIAIC Hackathon 0'
+    'Sikandar Tahir &middot; CEO Command &middot; AI Employee Vault &middot; GIAIC Hackathon 0'
     '</p>',
     unsafe_allow_html=True,
 )

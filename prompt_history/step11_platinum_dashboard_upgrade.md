@@ -1,7 +1,7 @@
 # Step 11 — Platinum Dashboard: Executive Command Center
 
 **Date:** February 18, 2026
-**Author:** Tabraiz Haider
+**Author:** Sikandar Tahir
 **Project:** GIAIC Hackathon 0 — Personal AI Employee
 
 ---
@@ -129,7 +129,7 @@ Both charts use transparent backgrounds matching the dark theme.
 ┌──────────────────────────────────────────────────────────────────────┐
 │  Sidebar                │  Executive Command Center                  │
 │  ─────────              │                                            │
-│  Tabraiz Haider         │  [Invoiced] [Collected] [Profit] [Bank]    │
+│  Sikandar Tahir         │  [Invoiced] [Collected] [Profit] [Bank]    │
 │  Executive Command      │  [Overdue]  [Expenses]                     │
 │  Center                 │                                            │
 │                         │  [Emails] [Unread] [High] [ToDo] [Doing]   │
@@ -154,7 +154,7 @@ Both charts use transparent backgrounds matching the dark theme.
 │                         │  ─── AI Recommendation ───                 │
 │                         │  [Info callout]                            │
 │                         │                                            │
-│                         │  Footer: Tabraiz Haider | Platinum Tier    │
+│                         │  Footer: Sikandar Tahir | Platinum Tier    │
 └──────────────────────────────────────────────────────────────────────┘
 ```
 

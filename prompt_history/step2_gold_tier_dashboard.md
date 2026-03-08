@@ -2,14 +2,14 @@
 
 **Date:** February 17–18, 2026
 **Tier:** Gold
-**Author:** Tabraiz Haider
+**Author:** Sikandar Tahir
 **Project:** GIAIC Hackathon 0 — Personal AI Employee
 
 ---
 
 ## Objective
 
-Build a premium, dark-themed Streamlit dashboard that visualizes all AI Employee Vault data — emails, tasks, priorities, and the CEO Briefing — in a professional, real-time interface branded as "Tabraiz Haider | AI Command Center."
+Build a premium, dark-themed Streamlit dashboard that visualizes all AI Employee Vault data — emails, tasks, priorities, and the CEO Briefing — in a professional, real-time interface branded as "Sikandar Tahir | AI Command Center."
 
 ---
 
@@ -20,7 +20,7 @@ Build a premium, dark-themed Streamlit dashboard that visualizes all AI Employee
 A full-featured Streamlit application with the following sections:
 
 #### Page Configuration
-- Title: "Tabraiz Haider | AI Command Center"
+- Title: "Sikandar Tahir | AI Command Center"
 - Layout: Wide mode with expanded sidebar
 - Dark theme configured via `.streamlit/config.toml`
 
@@ -32,7 +32,7 @@ A full-featured Streamlit application with the following sections:
 - Color-coded priority badges (RED/YELLOW/GREEN)
 
 #### Sidebar (Minimalist)
-- **Branding:** "Tabraiz Haider" with gradient text, "AI Command Center" subtitle
+- **Branding:** "Sikandar Tahir" with gradient text, "AI Command Center" subtitle
 - **Report Date:** Dynamically shows current date
 - **System Status:** Green "LIVE" badge
 - **Refresh Timer:** Shows last auto-refresh timestamp
@@ -82,7 +82,7 @@ A full-featured Streamlit application with the following sections:
 - Displayed in a `st.info` callout box
 
 #### Footer
-- "Tabraiz Haider | AI Command Center | AI Employee Vault"
+- "Sikandar Tahir | AI Command Center | AI Employee Vault"
 
 ### 2. Real-Time Auto-Refresh
 
@@ -130,7 +130,7 @@ The dashboard went through three iterations:
 
 ### Iteration 2 — Branding Cleanup
 - Removed all "Multicraft Agency" / "Lyvexa AI" references
-- Rebranded to "Tabraiz Haider | AI Command Center"
+- Rebranded to "Sikandar Tahir | AI Command Center"
 - Minimalist sidebar (removed filter clutter, data sources)
 - Added `padding-top: 2rem` fix for header cut-off
 - Added `streamlit-autorefresh` for 30s auto-reload
@@ -156,7 +156,7 @@ pip install streamlit pandas plotly streamlit-autorefresh
 ## How to Run
 
 ```bash
-cd "C:\Users\Tabraiz Haider\OneDrive\Desktop\AI_Employee_Vault"
+cd "C:\Users\Sikandar Tahir\OneDrive\Desktop\AI_Employee_Vault"
 streamlit run app.py
 ```
 

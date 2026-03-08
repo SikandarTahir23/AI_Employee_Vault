@@ -1,7 +1,7 @@
 # Step 9 — Platinum Tier: Odoo MCP Bridge & Accounting Audit
 
 **Date:** February 18, 2026
-**Author:** Tabraiz Haider
+**Author:** Sikandar Tahir
 **Project:** GIAIC Hackathon 0 — Personal AI Employee
 
 ---

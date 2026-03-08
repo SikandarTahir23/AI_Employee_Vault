@@ -35,7 +35,7 @@ Dashboard button          -->  subprocess.run()    -->  Both scripts
 ## Dependencies
 
 - `playwright` — browser automation (`pip install playwright && playwright install chromium`)
-- Persistent Chrome profile at `C:\Users\Tabraiz Haider\AppData\Local\Google\Chrome\User Data`
+- Persistent Chrome profile at `C:\Users\Sikandar Tahir\AppData\Local\Google\Chrome\User Data`
 - Chrome must be fully closed before running (profile lock)
 - User must be logged into LinkedIn and WhatsApp Web in Chrome
 

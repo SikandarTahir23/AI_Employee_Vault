@@ -1,6 +1,6 @@
 # 🤖 AI Employee Vault
 
-> **A fully autonomous AI-powered business operations system** — built for Tabraiz Haider, CEO of Multicraft Agency.
+> **A fully autonomous AI-powered business operations system** — built for Sikandar Tahir, CEO of Multicraft Agency.
 
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.x-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)](https://streamlit.io)
@@ -181,7 +181,7 @@ Add credentials to `watchers/credentials.json` and `watchers/token.json`.
 
 ## 👤 Author
 
-**Tabraiz Haider**
+**Sikandar Tahir**
 CEO — Multicraft Agency
 GIAIC Hackathon 0
 

@@ -3,8 +3,8 @@ import time
 
 # Paths
 user_profile = os.environ['USERPROFILE']
-path_to_watch = r"C:\Users\Tabraiz Haider\OneDrive\Desktop"
-vault_path = r"C:\Users\Tabraiz Haider\OneDrive\Desktop\AI_Employee_Vault"
+path_to_watch = r"C:\Users\Sikandar Tahir\OneDrive\Desktop"
+vault_path = r"C:\Users\Sikandar Tahir\OneDrive\Desktop\AI_Employee_Vault"
 
 def read_and_sort(file_name, content):
     content_lower = content.lower()

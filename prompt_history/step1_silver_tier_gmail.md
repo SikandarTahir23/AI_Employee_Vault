@@ -2,7 +2,7 @@
 
 **Date:** February 17, 2026
 **Tier:** Silver
-**Author:** Tabraiz Haider
+**Author:** Sikandar Tahir
 **Project:** GIAIC Hackathon 0 — Personal AI Employee
 
 ---

@@ -1,7 +1,7 @@
 # Step 6 — Silver Tier Completion: LinkedIn Agent & Execution Plans
 
 **Date:** February 18, 2026
-**Author:** Tabraiz Haider
+**Author:** Sikandar Tahir
 **Project:** GIAIC Hackathon 0 — Personal AI Employee
 
 ---

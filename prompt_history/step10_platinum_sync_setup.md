@@ -1,7 +1,7 @@
 # Step 10 — Platinum Tier: Cloud-Local Delegation & Git Sync
 
 **Date:** February 18, 2026
-**Author:** Tabraiz Haider
+**Author:** Sikandar Tahir
 **Project:** GIAIC Hackathon 0 — Personal AI Employee
 
 ---
