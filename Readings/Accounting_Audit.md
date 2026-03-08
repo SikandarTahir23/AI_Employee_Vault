@@ -56,7 +56,7 @@
 | ID | Vendor | Description | Category | Amount | Status |
 |----|--------|-------------|----------|--------|--------|
 | EXP-2026-0101 | Vercel Pro | Monthly hosting — 3 client projects | Cloud & Hosting | PKR 8,500 | Paid |
-| EXP-2026-0102 | AWS | EC2 + S3 — Lyvexa AI infra | Cloud & Hosting | PKR 22,000 | Paid |
+| EXP-2026-0102 | AWS | EC2 + S3 — Multicraft Agency infra | Cloud & Hosting | PKR 22,000 | Paid |
 | EXP-2026-0103 | Anthropic | Claude Pro subscription | Software Licenses | PKR 5,500 | Paid |
 | EXP-2026-0104 | Figma | Professional plan — design team | Software Licenses | PKR 4,200 | Paid |
 | EXP-2026-0105 | Meta Ads | Facebook + Instagram campaign — Feb | Marketing | PKR 35,000 | Paid |

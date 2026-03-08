@@ -26,7 +26,7 @@ The AI Employee Vault is a personal AI operations platform that replaces manual 
 
 ### 📝 AI Post Creator
 - Type a 1-line prompt → instant professional LinkedIn post
-- Brand selector: **Multicraft Agency** or **Lyvexa AI**
+- Brand: **Multicraft Agency**
 - Live preview & edit in dashboard (`st.text_area`)
 - **Publish Now** button — saves, approves, and triggers poster in one click
 - Fully isolated subprocess (never freezes the dashboard)
@@ -182,7 +182,7 @@ Add credentials to `watchers/credentials.json` and `watchers/token.json`.
 ## 👤 Author
 
 **Tabraiz Haider**
-CEO — Multicraft Agency & Lyvexa AI
+CEO — Multicraft Agency
 GIAIC Hackathon 0
 
 ---

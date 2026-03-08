@@ -829,7 +829,7 @@ with st.sidebar:
                     while st.session_state.get("autopilot_toggle", False):
                         try:
                             _safe_run(
-                                [_PY, str(BASE_DIR / "linkedin_agent.py"), "--both"],
+                                [_PY, str(BASE_DIR / "linkedin_agent.py")],
                                 timeout=120,
                             )
                             st.session_state["autopilot_last_run"] = datetime.now().strftime("%Y-%m-%d %H:%M")
@@ -1104,8 +1104,8 @@ ch_li, ch_wa = st.columns(2)
 
 # Count approved items for each channel
 _approved_li = [f for f in APPROVED_DIR.glob("LinkedIn_Post*.md")] if APPROVED_DIR.exists() else []
-_approved_wa = [f for f in APPROVED_DIR.glob("*.md")
-                if f.name != ".gitkeep" and not f.name.startswith("LinkedIn")] if APPROVED_DIR.exists() else []
+_approved_wa = [f for f in APPROVED_DIR.glob("WA_*.md")
+                if f.name != ".gitkeep"] if APPROVED_DIR.exists() else []
 
 with ch_li:
     st.markdown(
@@ -1165,7 +1165,7 @@ with ch_wa:
             try:
                 _rc, _out = _safe_run(
                     [_PY, str(BASE_DIR / "whatsapp_sender.py")],
-                    timeout=150,
+                    timeout=600,
                 )
                 if _rc == 0:
                     st.write(_out[-400:] if len(_out) > 400 else (_out or "Done."))
@@ -1175,7 +1175,7 @@ with ch_wa:
                     st.write(_out[-300:] if _out else "Unknown error")
                     _wa_st.update(label="WhatsApp sender failed", state="error")
             except subprocess.TimeoutExpired:
-                _wa_st.update(label="Timed out after 150s", state="error")
+                _wa_st.update(label="Timed out after 10 min", state="error")
             except Exception as _e:
                 st.write(str(_e))
                 _wa_st.update(label="Failed", state="error")
@@ -1419,13 +1419,13 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Brand selector + prompt input row
+# Prompt input row
 ai_col1, ai_col2 = st.columns([2, 5])
 with ai_col1:
     ai_brand = st.selectbox(
         "Brand",
-        options=["multicraft_agency", "lyvexa_ai"],
-        format_func=lambda k: {"multicraft_agency": "Multicraft Agency", "lyvexa_ai": "Lyvexa AI"}.get(k, k),
+        options=["multicraft_agency"],
+        format_func=lambda k: "Multicraft Agency",
         key="ai_brand_select",
         label_visibility="collapsed",
     )

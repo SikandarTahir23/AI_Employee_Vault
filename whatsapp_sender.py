@@ -41,25 +41,21 @@ PROFILE_DIR.mkdir(exist_ok=True)
 # HELPERS
 # ──────────────────────────────────────────────
 def close_chrome():
-    """Kill any running Chrome/Chromium instances to avoid profile lock conflicts."""
-    import time as _t
-    killed = False
-    try:
-        if sys.platform == "win32":
-            for proc_name in ["chrome.exe", "chromium.exe"]:
-                result = subprocess.run(
-                    ["taskkill", "/F", "/IM", proc_name],
-                    capture_output=True, text=True,
-                )
-                if result.returncode == 0:
-                    killed = True
-            if killed:
-                print("[INFO] Closed Chrome/Chromium to free profile lock...")
-                _t.sleep(3)  # wait for profile lock to release
-        else:
-            subprocess.run(["pkill", "-f", "chrome"], capture_output=True)
-    except Exception:
-        pass
+    """Remove stale profile locks instead of killing Chrome (which kills the dashboard tab)."""
+    lock_files = [
+        PROFILE_DIR / "lockfile",
+        PROFILE_DIR / "Default" / "LOCK",
+        PROFILE_DIR / "SingletonLock",
+        PROFILE_DIR / "SingletonCookie",
+        PROFILE_DIR / "SingletonSocket",
+    ]
+    for lf in lock_files:
+        if lf.exists():
+            try:
+                lf.unlink()
+                print(f"[INFO] Removed stale lock: {lf.name}")
+            except Exception:
+                pass
 
 
 def get_browser_context(playwright):
@@ -199,14 +195,18 @@ def send_whatsapp(contact, message):
                 f'span[title="{contact}"], span.matched-text'
             )
             contact_result.first.click(timeout=15000)
-            page.wait_for_timeout(1000)
 
-            msg_box = page.locator(
-                'div[contenteditable="true"][data-tab="10"], '
-                'div[title="Type a message"], '
-                'footer div[contenteditable="true"]'
-            )
-            msg_box.first.click(timeout=10000)
+            # Wait for message input box to appear (chat fully loaded)
+            msg_box_sel = 'div[aria-placeholder="Type a message"]'
+            try:
+                page.wait_for_selector(msg_box_sel, timeout=30000)
+            except Exception:
+                msg_box_sel = 'div[contenteditable="true"][data-tab="10"]'
+                page.wait_for_selector(msg_box_sel, timeout=15000)
+            page.wait_for_timeout(500)
+
+            msg_box = page.locator(msg_box_sel)
+            msg_box.first.click(timeout=15000)
 
             lines = message.split("\n")
             for i, line in enumerate(lines):
@@ -216,8 +216,8 @@ def send_whatsapp(contact, message):
 
             page.wait_for_timeout(500)
             page.keyboard.press("Enter")
-            print("[INFO] Waiting 8s for message to deliver...")
-            page.wait_for_timeout(8000)
+            print("[INFO] Waiting 3 min for message to deliver...")
+            page.wait_for_timeout(180000)
             print(f"[OK] Message sent to {contact}!")
             success = True
 
@@ -364,15 +364,21 @@ def process_approved():
                     'span.matched-text'
                 )
                 contact_result.first.click(timeout=15000)
-                page.wait_for_timeout(1000)
 
-                # Type message
-                msg_box = page.locator(
-                    'div[contenteditable="true"][data-tab="10"], '
-                    'div[title="Type a message"], '
-                    'footer div[contenteditable="true"]'
-                )
-                msg_box.first.click(timeout=10000)
+                # Wait for message input box to appear (chat fully loaded)
+                # Use the most specific selector: aria-placeholder is unique to message box
+                msg_box_sel = 'div[aria-placeholder="Type a message"]'
+                try:
+                    page.wait_for_selector(msg_box_sel, timeout=30000)
+                except Exception:
+                    # Fallback: try data-tab="10" (older WA Web versions)
+                    msg_box_sel = 'div[contenteditable="true"][data-tab="10"]'
+                    page.wait_for_selector(msg_box_sel, timeout=15000)
+                page.wait_for_timeout(500)
+
+                # Type message — click the message input box
+                msg_box = page.locator(msg_box_sel)
+                msg_box.first.click(timeout=15000)
 
                 lines = message.split("\n")
                 for i, line in enumerate(lines):
@@ -382,8 +388,16 @@ def process_approved():
 
                 page.wait_for_timeout(500)
                 page.keyboard.press("Enter")
-                print(f"[INFO] Message sent — waiting 8s for delivery...")
-                page.wait_for_timeout(8000)
+                print(f"[INFO] Enter pressed")
+
+                # Brief wait for message to send
+                page.wait_for_timeout(5000)
+
+                try:
+                    page.screenshot(path=str(BASE_DIR / "debug_after_send.png"))
+                    print("[DEBUG] Saved debug_after_send.png")
+                except Exception:
+                    print("[DEBUG] Screenshot skipped (non-critical)")
 
                 # Archive
                 dest = DONE_DIR / f.name

@@ -1,7 +1,7 @@
 """
 LinkedIn Agent — Draft Generator
-Creates professional LinkedIn post drafts about Multicraft Agency
-and Lyvexa AI services, saved to Drafts/LinkedIn_Post.md.
+Creates professional LinkedIn post drafts about Multicraft Agency,
+saved to Drafts/LinkedIn_Post.md.
 """
 
 import sys
@@ -12,40 +12,28 @@ BASE_DIR = Path(__file__).resolve().parent
 DRAFTS_DIR = BASE_DIR / "Drafts"
 
 # Service catalog for generating varied posts
+BRAND = {
+    "name": "Multicraft Agency",
+    "tagline": "Building Digital Futures",
+    "services": [
+        "Custom Web & Mobile App Development",
+        "AI-Powered Business Automation",
+        "Brand Identity & UI/UX Design",
+        "Cloud Architecture & DevOps",
+        "E-Commerce Solutions",
+    ],
+    "cta": "Let's build something extraordinary together.",
+}
+
+# Keep SERVICES dict for backward-compat with app.py importlib usage
 SERVICES = {
-    "multicraft_agency": {
-        "name": "Multicraft Agency",
-        "tagline": "Building Digital Futures",
-        "services": [
-            "Custom Web & Mobile App Development",
-            "AI-Powered Business Automation",
-            "Brand Identity & UI/UX Design",
-            "Cloud Architecture & DevOps",
-            "E-Commerce Solutions",
-        ],
-        "cta": "Let's build something extraordinary together.",
-    },
-    "lyvexa_ai": {
-        "name": "Lyvexa AI",
-        "tagline": "Intelligence That Works For You",
-        "services": [
-            "AI Employee Agents (Digital FTEs)",
-            "Autonomous Email & Task Management",
-            "Real-Time Business Intelligence Dashboards",
-            "Custom LLM Integration & Fine-Tuning",
-            "Workflow Automation with Human-in-the-Loop",
-        ],
-        "cta": "Ready to hire your first AI employee?",
-    },
+    "multicraft_agency": BRAND,
 }
 
 
-def generate_post(brand_key, topic=None):
-    """Generate a LinkedIn post draft for the given brand."""
-    brand = SERVICES.get(brand_key)
-    if not brand:
-        print(f"[ERROR] Unknown brand: {brand_key}")
-        return None
+def generate_post(brand_key="multicraft_agency", topic=None):
+    """Generate a LinkedIn post draft."""
+    brand = SERVICES.get(brand_key, BRAND)
 
     now = datetime.now()
     date_str = now.strftime("%Y-%m-%d %H:%M")
@@ -88,7 +76,7 @@ The future belongs to businesses that move fast and build smart. We help you do 
     return content
 
 
-def save_draft(content, brand_key):
+def save_draft(content, brand_key="multicraft_agency"):
     """Save the draft to Drafts/ folder."""
     DRAFTS_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -106,27 +94,14 @@ def main():
     print("=" * 50)
     print()
 
-    # Parse arguments
-    brand_key = "multicraft_agency"
     topic = None
-
-    if "--lyvexa" in sys.argv:
-        brand_key = "lyvexa_ai"
-    if "--both" in sys.argv:
-        for key in SERVICES:
-            content = generate_post(key)
-            path = save_draft(content, key)
-            print(f"  [SAVED] {path.name}")
-        print(f"\n[DONE] Drafts saved to {DRAFTS_DIR}")
-        return
-
     for arg in sys.argv[1:]:
         if not arg.startswith("--"):
             topic = arg
 
-    content = generate_post(brand_key, topic)
+    content = generate_post("multicraft_agency", topic)
     if content:
-        path = save_draft(content, brand_key)
+        path = save_draft(content, "multicraft_agency")
         print(f"  [SAVED] {path.name}")
         print(f"  [PATH] {path}")
         print(f"\n[DONE] Draft saved to {DRAFTS_DIR}")

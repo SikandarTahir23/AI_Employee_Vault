@@ -24,7 +24,7 @@
 | From | Type | Time | Business? | Preview |
 |------|------|------|-----------|---------|
 | Ahmed Raza | message | 2026-02-17 14:22 | **Yes** | Hey, I saw your agency's work on that e-commerce project. We... |
-| Sara Khan | comment | 2026-02-17 16:05 | **Yes** | Amazing work on the Lyvexa AI dashboard! How can I get one f... |
+| Sara Khan | comment | 2026-02-17 16:05 | **Yes** | Amazing work on the Multicraft Agency dashboard! How can I get one f... |
 | Ali Hassan | message | 2026-02-17 18:30 | **No** | Bro great work, keep it up! |
 | Fatima Zahra | reaction | 2026-02-17 20:15 | **No** | Liked your post: 'Multicraft Agency launches AI-powered dash... |
 

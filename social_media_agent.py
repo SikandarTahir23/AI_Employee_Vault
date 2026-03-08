@@ -52,7 +52,7 @@ def suggest_response(msg):
     if any(w in content for w in ["app", "website", "mobile", "web"]):
         return f"Share portfolio and discuss project scope with {sender}"
     if any(w in content for w in ["partner", "collaboration", "automation", "ai"]):
-        return f"Arrange a Lyvexa AI consultation session with {sender}"
+        return f"Arrange a Multicraft Agency consultation session with {sender}"
     return f"Follow up with {sender} to understand their requirements"
 
 
