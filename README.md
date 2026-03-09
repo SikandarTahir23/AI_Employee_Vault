@@ -5,13 +5,14 @@
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.x-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)](https://streamlit.io)
 [![Playwright](https://img.shields.io/badge/Playwright-Automation-45ba4b?style=flat-square)](https://playwright.dev)
+[![Meta Graph API](https://img.shields.io/badge/Meta-Graph_API-1877F2?style=flat-square&logo=facebook)](https://developers.facebook.com/docs/graph-api)
 [![License](https://img.shields.io/badge/License-Private-red?style=flat-square)]()
 
 ---
 
 ## 🏆 System Score: 10 / 10 — Production Ready
 
-The AI Employee Vault is a personal AI operations platform that replaces manual business workflows with autonomous agents. It reads emails, generates LinkedIn content, sends WhatsApp messages, tracks accounting, and gives the CEO full control — all from a single dark-themed dashboard.
+The AI Employee Vault is a personal AI operations platform that replaces manual business workflows with autonomous agents. It reads emails, generates LinkedIn content, sends WhatsApp messages, tracks accounting, posts to Facebook & Instagram, and gives the CEO full control — all from a single dark-themed dashboard.
 
 ---
 
@@ -23,6 +24,13 @@ The AI Employee Vault is a personal AI operations platform that replaces manual 
 - **Kanban task board** — Needs Action / In Progress / Done
 - **Agent console** — live tail of `logs/agent_activity.log`
 - **Auto-refresh** every 30 seconds
+
+### 📱 Social Media Commander (NEW)
+- **Meta Graph API Integration** — Post to Facebook Pages & Instagram Business accounts
+- **Unified Post Creator** — Write once, publish to both platforms simultaneously
+- **Live Post Preview** — See exactly how your post will look before publishing
+- **Obsidian Vault Logging** — Every post auto-logged with URL, timestamp, and content
+- **Secure Credential Management** — API tokens stored in `.env` file
 
 ### 📝 AI Post Creator
 - Type a 1-line prompt → instant professional LinkedIn post
@@ -38,6 +46,8 @@ The AI Employee Vault is a personal AI operations platform that replaces manual 
 | 💬 WhatsApp | Task scanner, AI Quick Reply composer, Run Sender button |
 | 📊 Social | Activity overview from social_media_agent |
 | 💼 LinkedIn | Channel status card, approved post count, Run Poster button |
+| 📘 Facebook | Post to Facebook Pages with images and links |
+| 📷 Instagram | Post to Instagram Business accounts |
 
 ### 📁 Draft Management
 - Lists all drafts with brand, date, and status badges
@@ -90,6 +100,8 @@ AI_Employee_Vault/
 ├── Plans/                    # 🧠 AI execution plans
 ├── Commands/                 # 💬 CEO Odoo commands
 ├── logs/                     # 📋 Agent activity log
+├── AI_EMPLOYEE_VAULT/        # 📚 Obsidian vault (auto-logged posts)
+│   └── Social_Posts/         # 📱 Meta post logs (by date)
 └── prompt_history/           # 🗒️ Development changelog
 ```
 
@@ -117,6 +129,42 @@ Gmail → watchers/gmail_bridge.py → Readings/EMAIL_*.md → agent_brain.py �
 accounting_status.json → odoo_mcp_bridge.py → Readings/Accounting_Audit.md → Dashboard
 ```
 
+### Meta Social Pipeline (NEW)
+```
+Dashboard Post Creator → meta_automation.py → Facebook/Instagram → AI_EMPLOYEE_VAULT/Social_Posts/
+```
+
+---
+
+## 📘 Meta (Facebook & Instagram) Setup
+
+### 1. Get Meta Developer Credentials
+
+1. Go to [Meta for Developers](https://developers.facebook.com/apps)
+2. Create a new app or select existing
+3. Add **Facebook Login** and **Instagram Graph API** products
+4. Generate a **Long-Lived Page Access Token**
+
+### 2. Find Your IDs
+
+- **Facebook Page ID**: Visit [findmyfbid.in](https://findmyfbid.in/) or check Page settings
+- **Instagram Business Account ID**: Use Graph API Explorer: `GET /me/accounts?fields=instagram_business_account`
+
+### 3. Configure in Dashboard
+
+1. Open the AI Employee Vault dashboard
+2. Navigate to **Social Media Commander** section
+3. Click **Configure Meta API Credentials**
+4. Enter your credentials and save
+
+### 4. Test Posting
+
+```bash
+python meta_automation.py
+```
+
+This will validate your credentials and show account info.
+
 ---
 
 ## 🛡️ Stability Features
@@ -136,7 +184,7 @@ accounting_status.json → odoo_mcp_bridge.py → Readings/Accounting_Audit.md �
 ### 1. Install dependencies
 
 ```bash
-pip install streamlit streamlit-autorefresh plotly pandas playwright
+pip install streamlit streamlit-autorefresh plotly pandas playwright python-dotenv requests
 playwright install chromium
 ```
 
@@ -152,7 +200,11 @@ Open **http://localhost:8501**
 python linkedin_poster.py --login
 ```
 
-### 4. Configure Gmail (optional)
+### 4. Configure Meta Social Media (Optional)
+- Edit `.env` file with your Meta API credentials
+- Or configure directly in the dashboard under **Social Media Commander**
+
+### 5. Configure Gmail (optional)
 Add credentials to `watchers/credentials.json` and `watchers/token.json`.
 
 ---
@@ -173,8 +225,11 @@ Add credentials to `watchers/credentials.json` and `watchers/token.json`.
 
 - **[Streamlit](https://streamlit.io)** — Dashboard UI
 - **[Playwright](https://playwright.dev/python/)** — Browser automation (LinkedIn, WhatsApp Web)
+- **[Meta Graph API](https://developers.facebook.com/docs/graph-api)** — Facebook & Instagram posting
 - **[Plotly](https://plotly.com/python/)** — Financial charts
 - **[Claude AI](https://anthropic.com)** — AI content generation backbone
+- **[python-dotenv](https://pypi.org/project/python-dotenv/)** — Environment variable management
+- **[Requests](https://requests.readthedocs.io/)** — HTTP client for Meta API
 - **Python 3.11+** — Core runtime
 
 ---

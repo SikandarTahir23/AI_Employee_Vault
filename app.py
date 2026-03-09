@@ -1643,6 +1643,19 @@ with hub_social:
         st.info("No social data yet.")
 
 # ──────────────────────────────────────────────
+# SOCIAL MEDIA COMMANDER — Meta (Facebook & Instagram)
+# ──────────────────────────────────────────────
+st.markdown('<div class="section-header">Social Media Commander</div>', unsafe_allow_html=True)
+
+# Import and render the Social Media Commander UI
+try:
+    from social_media_commander_ui import render_social_media_commander
+    render_social_media_commander()
+except ImportError as e:
+    st.warning(f"Social Media Commander module not available: {e}")
+    st.info("To enable Meta (Facebook & Instagram) posting, ensure social_media_commander_ui.py exists")
+
+# ──────────────────────────────────────────────
 # DRAFT MANAGEMENT
 # ──────────────────────────────────────────────
 st.markdown('<div class="section-header">Draft Management</div>', unsafe_allow_html=True)

@@ -30,7 +30,8 @@ except ImportError:
 BASE_DIR = Path(__file__).resolve().parent
 APPROVED_DIR = BASE_DIR / "Approved"
 DONE_DIR = BASE_DIR / "Done"
-PROFILE_DIR = BASE_DIR / ".playwright_profile"
+PROFILE_DIR = BASE_DIR / ".whatsapp_session"
+CHROME_EXE = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
 
 APPROVED_DIR.mkdir(exist_ok=True)
 DONE_DIR.mkdir(exist_ok=True)
@@ -41,55 +42,18 @@ PROFILE_DIR.mkdir(exist_ok=True)
 # HELPERS
 # ──────────────────────────────────────────────
 def close_chrome():
-    """Remove stale profile locks instead of killing Chrome (which kills the dashboard tab)."""
-    lock_files = [
-        PROFILE_DIR / "lockfile",
-        PROFILE_DIR / "Default" / "LOCK",
-        PROFILE_DIR / "SingletonLock",
-        PROFILE_DIR / "SingletonCookie",
-        PROFILE_DIR / "SingletonSocket",
-    ]
-    for lf in lock_files:
-        if lf.exists():
+    """Close all Chrome instances."""
+    subprocess.run(["taskkill", "/F", "/IM", "chrome.exe"], capture_output=True)
+
+
+def clean_locks():
+    """Remove stale lock files from profile."""
+    for lock in PROFILE_DIR.rglob("*"):
+        if lock.is_file() and any(x in lock.name.lower() for x in ["lock", "singleton"]):
             try:
-                lf.unlink()
-                print(f"[INFO] Removed stale lock: {lf.name}")
-            except Exception:
+                lock.unlink()
+            except:
                 pass
-
-
-def get_browser_context(playwright):
-    """Launch persistent Chromium context with saved profile."""
-    # Remove stale lock files that prevent browser from opening
-    lock_file = PROFILE_DIR / "lockfile"
-    default_lock = PROFILE_DIR / "Default" / "LOCK"
-    for lf in [lock_file, default_lock]:
-        if lf.exists():
-            try:
-                lf.unlink()
-                print(f"[INFO] Removed stale lock: {lf.name}")
-            except Exception:
-                pass
-
-    # Use bundled Chromium (most stable) — system Chrome causes profile conflicts
-    return playwright.chromium.launch_persistent_context(
-        user_data_dir=str(PROFILE_DIR),
-        headless=False,
-        args=[
-            "--disable-blink-features=AutomationControlled",
-            "--no-sandbox",
-            "--disable-dev-shm-usage",
-            "--disable-gpu",
-            "--no-first-run",
-            "--no-default-browser-check",
-            "--disable-extensions",
-            "--disable-background-networking",
-            "--disable-sync",
-            "--no-zygote",
-        ],
-        viewport={"width": 1280, "height": 900},
-        ignore_default_args=["--enable-automation"],
-    )
 
 
 def parse_message_file(filepath):
@@ -108,24 +72,37 @@ def parse_message_file(filepath):
 # LOGIN FLOW
 # ──────────────────────────────────────────────
 def login_flow():
-    """Open browser for QR code scan, then save session."""
+    """Open browser for QR code scan."""
     print("[INFO] Opening browser for WhatsApp Web login...")
-    print("[INFO] Scan the QR code, then close the browser window.")
+    print("[INFO] Scan the QR code with your phone")
+    print("[INFO] Wait until you see your chat list")
+    print("[INFO] Then close the browser window\n")
+    
     close_chrome()
+    clean_locks()
 
     with sync_playwright() as p:
-        context = get_browser_context(p)
-        page = context.pages[0] if context.pages else context.new_page()
-        page.goto("https://web.whatsapp.com/", timeout=60000, wait_until="domcontentloaded")
-
+        browser = p.chromium.launch(
+            executable_path=CHROME_EXE,
+            headless=False,
+            args=["--no-sandbox", "--disable-dev-shm-usage"],
+        )
+        
+        page = browser.new_page()
+        page.goto("https://web.whatsapp.com/", timeout=60000)
+        
+        print("[WAIT] Waiting for you to scan QR code and load chats...")
+        print("[ACTION] Scan QR code now, wait for chat list, then close browser\n")
+        
+        # Wait for user to close browser or 5 minutes
         try:
             page.wait_for_event("close", timeout=300000)
-        except Exception:
+        except:
             pass
-
+        
         try:
-            context.close()
-        except Exception:
+            browser.close()
+        except:
             pass
 
     print("[OK] Session saved. You can now run without --login.")
@@ -134,126 +111,58 @@ def login_flow():
 # ──────────────────────────────────────────────
 # SEND MESSAGE
 # ──────────────────────────────────────────────
-def send_whatsapp(contact, message):
-    """Launch browser and send a single WhatsApp message. Used for direct calls."""
-    print(f"[INFO] Sending to '{contact}' via WhatsApp Web...")
-
-    with sync_playwright() as p:
-        try:
-            context = get_browser_context(p)
-        except Exception as e:
-            print(f"[ERROR] Could not launch browser: {e}")
-            return False
-
-        page = context.pages[0] if context.pages else context.new_page()
-
-        try:
-            for attempt in range(3):
-                try:
-                    print(f"[INFO] Navigating to WhatsApp Web (attempt {attempt+1}/3)...")
-                    page.goto("https://web.whatsapp.com/", timeout=300000, wait_until="domcontentloaded")
-                    break
-                except Exception as nav_err:
-                    if attempt < 2:
-                        print(f"[WARN] Navigation failed, relaunching browser in 5s...")
-                        import time as _t
-                        try:
-                            context.close()
-                        except Exception:
-                            pass
-                        _t.sleep(5)
-                        try:
-                            context = get_browser_context(p)
-                            page = context.pages[0] if context.pages else context.new_page()
-                        except Exception:
-                            raise nav_err
-                    else:
-                        raise nav_err
-
-            print("[INFO] Waiting for WhatsApp to load (up to 5 min for first-time session restore)...")
-            page.wait_for_selector(
-                'div[contenteditable="true"][data-tab="3"], '
-                'div[title="Search input textbox"], '
-                'div[aria-label="Search input textbox"], '
-                '[data-testid="chat-list-search"]',
-                timeout=300000,
-            )
-            page.wait_for_timeout(2000)
-
-            search_box = page.locator(
-                'div[contenteditable="true"][data-tab="3"], '
-                'div[title="Search input textbox"], '
-                'div[aria-label="Search input textbox"]'
-            )
-            search_box.first.click(timeout=15000)
-            page.keyboard.press("Control+a")
-            page.keyboard.press("Delete")
-            page.keyboard.type(contact, delay=50)
-            page.wait_for_timeout(2500)
-
-            contact_result = page.locator(
-                f'span[title="{contact}"], span.matched-text'
-            )
-            contact_result.first.click(timeout=15000)
-
-            # Wait for message input box to appear (chat fully loaded)
-            msg_box_sel = 'div[aria-placeholder="Type a message"]'
-            try:
-                page.wait_for_selector(msg_box_sel, timeout=30000)
-            except Exception:
-                msg_box_sel = 'div[contenteditable="true"][data-tab="10"]'
-                page.wait_for_selector(msg_box_sel, timeout=15000)
-            page.wait_for_timeout(500)
-
-            msg_box = page.locator(msg_box_sel)
-            msg_box.first.click(timeout=15000)
-
-            lines = message.split("\n")
-            for i, line in enumerate(lines):
-                if i > 0:
-                    page.keyboard.press("Shift+Enter")
-                page.keyboard.type(line, delay=10)
-
-            page.wait_for_timeout(500)
-            page.keyboard.press("Enter")
-            print("[INFO] Waiting 3 min for message to deliver...")
-            page.wait_for_timeout(180000)
-            print(f"[OK] Message sent to {contact}!")
-            success = True
-
-        except PwTimeout as e:
-            print(f"[ERROR] Timeout: {e}")
-            print("[HINT] WhatsApp Web may have updated its UI. Check selectors.")
-            success = False
-        except Exception as e:
-            print(f"[ERROR] {e}")
-            success = False
-        finally:
-            try:
-                context.close()
-            except Exception:
-                pass
-
-        return success
-
-
-# ──────────────────────────────────────────────
-# WATCH MODE
-# ──────────────────────────────────────────────
-def watch_loop():
-    """Poll Approved/ every 60s and process new files."""
-    import time
-    print("[INFO] Watch mode — polling Approved/ every 60s. Press Ctrl+C to stop.")
-    while True:
-        process_approved()
-        time.sleep(60)
+def send_message(page, contact, message):
+    """Send a single WhatsApp message."""
+    print(f"\n[INFO] Sending to: {contact}")
+    
+    try:
+        # Click search box
+        search = page.locator('[data-testid="chat-list-search"]').first
+        search.click(timeout=10000)
+        
+        # Clear previous search
+        page.keyboard.press("Control+a")
+        page.keyboard.press("Delete")
+        
+        # Type contact name
+        page.keyboard.type(contact, delay=50)
+        page.wait_for_timeout(2000)
+        
+        # Select first result
+        page.keyboard.press("Enter")
+        page.wait_for_timeout(2000)
+        
+        # Wait for message input
+        msg_box = page.locator('[data-testid="compose-box-input"]').first
+        msg_box.click(timeout=10000)
+        
+        # Type message
+        lines = message.split("\n")
+        for i, line in enumerate(lines):
+            if i > 0:
+                page.keyboard.press("Shift+Enter")
+            page.keyboard.type(line, delay=20)
+        
+        page.wait_for_timeout(500)
+        
+        # Send
+        send_btn = page.locator('[data-testid="compose-btn-send"]').first
+        send_btn.click(timeout=10000)
+        
+        page.wait_for_timeout(3000)
+        print(f"[OK] Message sent to {contact}!")
+        return True
+        
+    except Exception as e:
+        print(f"[ERROR] Failed to send: {e}")
+        return False
 
 
 # ──────────────────────────────────────────────
 # MAIN PROCESSING
 # ──────────────────────────────────────────────
 def process_approved():
-    """Find all approved .md WA files and send — one browser session for all messages."""
+    """Find all approved .md WA files and send."""
     files = sorted(APPROVED_DIR.glob("WA_*.md"))
     if not files:
         print("[INFO] No approved WA messages found.")
@@ -261,7 +170,7 @@ def process_approved():
 
     print(f"[INFO] Found {len(files)} approved message(s)\n")
 
-    # Parse all files first, skip invalid
+    # Parse all files first
     tasks = []
     for f in files:
         contact, message = parse_message_file(f)
@@ -277,147 +186,84 @@ def process_approved():
         print("[INFO] Nothing to send.")
         return
 
-    # Kill any stale Chrome to avoid profile lock
     close_chrome()
+    clean_locks()
 
-    # Open browser ONCE for all messages
     sent = 0
+    
     with sync_playwright() as p:
+        browser = p.chromium.launch(
+            executable_path=CHROME_EXE,
+            headless=False,
+            args=["--no-sandbox", "--disable-dev-shm-usage"],
+        )
+        
+        page = browser.new_page()
+        
+        print("[INFO] Opening WhatsApp Web...")
+        page.goto("https://web.whatsapp.com/", timeout=60000)
+        
+        # Check if logged in (no QR code)
+        print("[INFO] Checking login status...")
         try:
-            context = get_browser_context(p)
-        except Exception as e:
-            print(f"[ERROR] Could not launch browser: {e}")
-            return
-
-        page = context.pages[0] if context.pages else context.new_page()
-
-        # Navigate to WhatsApp Web — ERR_ABORTED on first try is normal (redirect)
-        # On failure: close entire context, wait, relaunch fresh
-        loaded = False
-        for attempt in range(3):
+            qr = page.locator('canvas').first
+            qr.wait_for(timeout=8000)
+            print("\n[ERROR] QR code detected - not logged in!")
+            print("[ACTION] Run with --login first to scan QR code\n")
             try:
-                print(f"[INFO] Navigating to WhatsApp Web (attempt {attempt+1}/3)...")
-                page.goto("https://web.whatsapp.com/", timeout=300000, wait_until="domcontentloaded")
-                break
-            except Exception as nav_err:
-                if attempt < 2:
-                    print(f"[WARN] Navigation failed, relaunching browser in 5s...")
-                    import time as _t
-                    try:
-                        context.close()
-                    except Exception:
-                        pass
-                    _t.sleep(5)
-                    # Relaunch fresh context + page
-                    try:
-                        context = get_browser_context(p)
-                        page = context.pages[0] if context.pages else context.new_page()
-                    except Exception as relaunch_err:
-                        print(f"[ERROR] Relaunch failed: {relaunch_err}")
-                        return
-                else:
-                    print(f"[ERROR] Could not reach WhatsApp Web: {nav_err}")
-                    try:
-                        context.close()
-                    except Exception:
-                        pass
-                    return
-
-        print("[INFO] Waiting for WhatsApp to load (up to 5 min for first-time session restore)...")
-        try:
-            page.wait_for_selector(
-                'div[contenteditable="true"][data-tab="3"], '
-                'div[title="Search input textbox"], '
-                'div[aria-label="Search input textbox"], '
-                '[data-testid="chat-list-search"]',
-                timeout=300000,
-            )
-            page.wait_for_timeout(2000)
-            loaded = True
-            print("[OK] WhatsApp Web loaded.")
-        except Exception as e:
-            print(f"[ERROR] WhatsApp did not load in time: {e}")
-            context.close()
+                browser.close()
+            except:
+                pass
             return
-
-        # Send each message in the same session
+        except:
+            print("[OK] Already logged in!")
+        
+        # Wait for chat list
+        print("[INFO] Waiting for chat list to load...")
+        try:
+            page.wait_for_selector('[data-testid="chat-list"]', timeout=120000)
+            page.wait_for_timeout(3000)
+            print("[OK] Chat list loaded!")
+        except Exception as e:
+            print(f"[WARN] Chat list wait: {e}")
+            page.screenshot(path="debug_wa_chatlist.png")
+        
+        # Send each message
         for f, contact, message in tasks:
-            print(f"\n--- Sending to: {contact} ({f.name}) ---")
-            try:
-                # Search for contact
-                search_box = page.locator(
-                    'div[contenteditable="true"][data-tab="3"], '
-                    'div[title="Search input textbox"], '
-                    'div[aria-label="Search input textbox"]'
-                )
-                search_box.first.click(timeout=15000)
-                # Clear previous search
-                page.keyboard.press("Control+a")
-                page.keyboard.press("Delete")
-                page.keyboard.type(contact, delay=50)
-                page.wait_for_timeout(2500)
-
-                # Click contact result
-                contact_result = page.locator(
-                    f'span[title="{contact}"], '
-                    f'span[title^="{contact[:8]}"], '
-                    'span.matched-text'
-                )
-                contact_result.first.click(timeout=15000)
-
-                # Wait for message input box to appear (chat fully loaded)
-                # Use the most specific selector: aria-placeholder is unique to message box
-                msg_box_sel = 'div[aria-placeholder="Type a message"]'
-                try:
-                    page.wait_for_selector(msg_box_sel, timeout=30000)
-                except Exception:
-                    # Fallback: try data-tab="10" (older WA Web versions)
-                    msg_box_sel = 'div[contenteditable="true"][data-tab="10"]'
-                    page.wait_for_selector(msg_box_sel, timeout=15000)
-                page.wait_for_timeout(500)
-
-                # Type message — click the message input box
-                msg_box = page.locator(msg_box_sel)
-                msg_box.first.click(timeout=15000)
-
-                lines = message.split("\n")
-                for i, line in enumerate(lines):
-                    if i > 0:
-                        page.keyboard.press("Shift+Enter")
-                    page.keyboard.type(line, delay=10)
-
-                page.wait_for_timeout(500)
-                page.keyboard.press("Enter")
-                print(f"[INFO] Enter pressed")
-
-                # Brief wait for message to send
-                page.wait_for_timeout(5000)
-
-                try:
-                    page.screenshot(path=str(BASE_DIR / "debug_after_send.png"))
-                    print("[DEBUG] Saved debug_after_send.png")
-                except Exception:
-                    print("[DEBUG] Screenshot skipped (non-critical)")
-
-                # Archive
+            print(f"\n--- Processing: {f.name} ---")
+            
+            if send_message(page, contact, message):
+                # Move to Done
                 dest = DONE_DIR / f.name
                 shutil.move(str(f), str(dest))
-                print(f"[OK] {f.name} moved to Done/")
+                print(f"[INFO] Moved {f.name} to Done/")
                 sent += 1
-
-            except PwTimeout as e:
-                print(f"[ERROR] Timeout for {contact}: {e}")
-            except Exception as e:
-                print(f"[ERROR] Failed for {contact}: {e}")
-
+            
+            page.wait_for_timeout(2000)
+        
         try:
-            context.close()
-        except Exception:
+            browser.close()
+        except:
             pass
 
     print(f"\n[DONE] Sent {sent}/{len(tasks)} message(s).")
 
 
+# ──────────────────────────────────────────────
+# WATCH MODE
+# ──────────────────────────────────────────────
+def watch_loop():
+    """Poll Approved/ every 60s and process new files."""
+    import time
+    print("[INFO] Watch mode — polling Approved/ every 60s. Press Ctrl+C to stop.")
+    while True:
+        process_approved()
+        time.sleep(60)
+
+
+# ──────────────────────────────────────────────
+# MAIN
+# ──────────────────────────────────────────────
 def main():
     print("=" * 50)
     print("  WhatsApp Sender — Browser Automation")
