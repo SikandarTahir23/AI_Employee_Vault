@@ -1,25 +1,28 @@
-# AI Agency Dashboard - Requirements
-# Install with: pip install -r requirements.txt
-
+# AI Employee Vault - Requirements
 # Core Dashboard
 streamlit>=1.28.0
 streamlit-autorefresh>=0.1.4
 
-# Google Gmail API
-google-auth>=2.25.0
-google-auth-oauthlib>=1.2.0
-google-auth-httplib2>=0.2.0
-google-api-python-client>=2.110.0
-
-# Browser Automation (WhatsApp, LinkedIn)
+# Browser Automation
 playwright>=1.40.0
 
-# Facebook Meta Graph API
+# Google APIs
+google-api-python-client>=2.100.0
+google-auth-httplib2>=0.1.1
+google-auth-oauthlib>=1.1.0
+
+# Meta/Facebook
 requests>=2.31.0
 
-# Environment Variables
-python-dotenv>=1.0.0
+# LinkedIn
+beautifulsoup4>=4.12.0
 
 # Utilities
+python-dotenv>=1.0.0
 pandas>=2.0.0
-plotly>=5.18.0
+plotly>=5.17.0
+
+# Development
+pytest>=7.4.0
+black>=23.0.0
+flake8>=6.1.0

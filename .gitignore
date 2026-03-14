@@ -16,8 +16,11 @@ tokens.json
 watchers/token.json
 *.token
 
-# ── WhatsApp Session ──
+# ── Session Folders ──
+sessions/
 .whatsapp_session/
+.playwright_profile/
+facebook_session/
 
 # ── Session Files ──
 *.session
@@ -62,14 +65,19 @@ desktop.ini
 .obsidian/workspace.json
 .obsidian/workspace-mobile.json
 
-# ── Playwright Browser Profile & Screenshots ──
-.playwright_profile/
+# ── Playwright Screenshots ──
 post_confirmation.png
 failure_capture.png
+debug_*.png
+fb_logged_in.png
 
 # ── Logs ──
 *.log
 logs/
+
+# ── Temp Files ──
+temp_*.py
+*.tmp
 
 # ── Keep empty workflow directories ──
 # Git ignores empty dirs, so .gitkeep files are needed
