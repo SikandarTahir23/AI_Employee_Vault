@@ -1,6 +1,6 @@
 # 🤖 AI Employee Vault
 
-> **A fully autonomous AI-powered business operations system** — built for Sikandar Tahir, CEO of Multicraft Agency.
+> **A fully autonomous AI-powered business operations system** — built for Sikandar Tahir, CEO of Sikandar Tahir Agency.
 
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.x-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)](https://streamlit.io)
@@ -34,7 +34,7 @@ The AI Employee Vault is a personal AI operations platform that replaces manual 
 
 ### 📝 AI Post Creator
 - Type a 1-line prompt → instant professional LinkedIn post
-- Brand: **Multicraft Agency**
+- Brand: **Sikandar Tahir Agency**
 - Live preview & edit in dashboard (`st.text_area`)
 - **Publish Now** button — saves, approves, and triggers poster in one click
 - Fully isolated subprocess (never freezes the dashboard)
@@ -237,7 +237,7 @@ Add credentials to `watchers/credentials.json` and `watchers/token.json`.
 ## 👤 Author
 
 **Sikandar Tahir**
-CEO — Multicraft Agency
+CEO — Sikandar Tahir Agency
 GIAIC Hackathon 0
 
 ---

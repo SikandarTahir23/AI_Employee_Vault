@@ -8,7 +8,7 @@
 
 ## Prompt Given
 
-> Create a script `linkedin_agent.py` that drafts a professional LinkedIn post about Multicraft Agency or Lyvexa AI services, saving the draft to `Drafts/LinkedIn_Post.md`.
+> Create a script `linkedin_agent.py` that drafts a professional LinkedIn post about Sikandar Tahir Agency or Lyvexa AI services, saving the draft to `Drafts/LinkedIn_Post.md`.
 >
 > Update `agent_brain.py` so that when it detects a HIGH priority task, it also creates a `Plan.md` file in the `/Plans` folder, detailing how to solve that task.
 >
@@ -23,9 +23,9 @@
 A post-draft generator that creates professional LinkedIn content for two brands.
 
 #### Features
-- **Two brand profiles:** Multicraft Agency and Lyvexa AI, each with their own tagline, service catalog, and call-to-action
+- **Two brand profiles:** Sikandar Tahir Agency and Lyvexa AI, each with their own tagline, service catalog, and call-to-action
 - **CLI flags:**
-  - Default: generates a Multicraft Agency post
+  - Default: generates a Sikandar Tahir Agency post
   - `--lyvexa`: generates a Lyvexa AI post
   - `--both`: generates drafts for both brands
   - Custom topic: `python linkedin_agent.py "Our new AI dashboard"`
@@ -35,7 +35,7 @@ A post-draft generator that creates professional LinkedIn content for two brands
 #### Generated Files
 ```
 Drafts/
-├── LinkedIn_Post_multicraft_agency_20260218_021858.md
+├── LinkedIn_Post_sikandartahir_agency_20260218_021858.md
 └── LinkedIn_Post_lyvexa_ai_20260218_021858.md
 ```
 
@@ -119,7 +119,7 @@ AI_Employee_Vault/
 │   ├── PLAN_Something_special_is_coming_this_Ramadan!.md
 │   └── PLAN_Your_cart's_rolling_away._Complete_your_order_today.md
 ├── Drafts/                 # NEW — LinkedIn post drafts
-│   ├── LinkedIn_Post_multicraft_agency_*.md
+│   ├── LinkedIn_Post_sikandartahir_agency_*.md
 │   └── LinkedIn_Post_lyvexa_ai_*.md
 ├── watchers/
 ├── prompt_history/
@@ -137,7 +137,7 @@ AI_Employee_Vault/
 
 ```bash
 # LinkedIn Agent
-python linkedin_agent.py              # Multicraft Agency draft
+python linkedin_agent.py              # Sikandar Tahir Agency draft
 python linkedin_agent.py --lyvexa     # Lyvexa AI draft
 python linkedin_agent.py --both       # Both brands
 

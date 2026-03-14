@@ -12,8 +12,8 @@
 - `mark_as_posted()` uses regex status update + appends timestamp + moves to Done/
 
 ### 2. Approved/ Status Sync
-- `LinkedIn_Post_multicraft_agency_20260218_062614.md` → Status: Approved
-- `LinkedIn_Post_multicraft_agency_20260218_073342.md` → Status: Approved
+- `LinkedIn_Post_sikandartahir_agency_20260218_062614.md` → Status: Approved
+- `LinkedIn_Post_sikandartahir_agency_20260218_073342.md` → Status: Approved
 
 ### 3. README.md
 - Full professional GitHub README with badges, architecture tree, pipeline diagrams, stability table, quick start

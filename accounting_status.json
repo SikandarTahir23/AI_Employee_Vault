@@ -1,6 +1,6 @@
 {
   "last_synced": "2026-02-28T09:00:00",
-  "company": "Multicraft Agency",
+  "company": "Sikandar Tahir Agency",
   "currency": "PKR",
   "fiscal_month": "February 2026",
   "invoices": [
@@ -56,7 +56,7 @@
     },
     {
       "id": "INV-2026-0046",
-      "client": "Multicraft Agency — Internal",
+      "client": "Sikandar Tahir Agency — Internal",
       "description": "AI Employee Vault — Phase 2 Deployment",
       "amount": 120000,
       "status": "draft",
@@ -79,7 +79,7 @@
       "id": "EXP-2026-0102",
       "category": "Cloud & Hosting",
       "vendor": "AWS",
-      "description": "EC2 + S3 — Multicraft Agency infra",
+      "description": "EC2 + S3 — Sikandar Tahir Agency infra",
       "amount": 22000,
       "date": "2026-02-01",
       "status": "paid"

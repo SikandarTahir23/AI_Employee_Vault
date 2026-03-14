@@ -124,12 +124,12 @@ This ensures the dashboard works regardless of the working directory.
 The dashboard went through three iterations:
 
 ### Iteration 1 — Initial Build
-- "Multicraft Agency" / "Lyvexa AI" branding
+- "Sikandar Tahir Agency" / "Lyvexa AI" branding
 - Basic metrics + charts + tables
 - Sidebar with data sources and priority filter
 
 ### Iteration 2 — Branding Cleanup
-- Removed all "Multicraft Agency" / "Lyvexa AI" references
+- Removed all "Sikandar Tahir Agency" / "Lyvexa AI" references
 - Rebranded to "Sikandar Tahir | AI Command Center"
 - Minimalist sidebar (removed filter clutter, data sources)
 - Added `padding-top: 2rem` fix for header cut-off

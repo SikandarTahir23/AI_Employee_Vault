@@ -16,6 +16,9 @@ tokens.json
 watchers/token.json
 *.token
 
+# ── WhatsApp Session ──
+.whatsapp_session/
+
 # ── Session Files ──
 *.session
 *.session-journal

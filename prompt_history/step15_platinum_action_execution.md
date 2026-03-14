@@ -46,7 +46,7 @@ Dashboard button          -->  subprocess.run()    -->  Both scripts
 python linkedin_poster.py
 
 # Post a specific draft
-python linkedin_poster.py Drafts/LinkedIn_Post_multicraft_agency_20260218_042249.md
+python linkedin_poster.py Drafts/LinkedIn_Post_sikandartahir_agency_20260218_042249.md
 
 # Send all approved WhatsApp messages
 python whatsapp_sender.py

@@ -20,7 +20,7 @@
 
 ### 1. Mock Data (`accounting_status.json`)
 
-Realistic financial data for Multicraft Agency — February 2026:
+Realistic financial data for Sikandar Tahir Agency — February 2026:
 
 #### Invoices (6 total)
 
@@ -110,7 +110,7 @@ Full financial audit report containing:
 ==================================================
   Vault:    AI_Employee_Vault
   Data:     accounting_status.json
-  Company:  Multicraft Agency
+  Company:  Sikandar Tahir Agency
 
   [MODE] Mock data — Odoo JSON-RPC integration pending
 
@@ -128,7 +128,7 @@ Full financial audit report containing:
 When Odoo 18/19 Community is installed:
 
 1. Install Odoo Community on `localhost:8069`
-2. Create database `multicraft` with chart of accounts
+2. Create database `sikandartahir` with chart of accounts
 3. Uncomment the JSON-RPC functions in `odoo_mcp_bridge.py`
 4. Replace `load_data()` with live Odoo queries
 5. Map Odoo `account.move` fields to the existing data structure

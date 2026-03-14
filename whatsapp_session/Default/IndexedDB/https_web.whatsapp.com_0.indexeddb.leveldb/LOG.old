@@ -1,0 +1,12 @@
+2026/03/15-00:53:52.016 1e64 Reusing MANIFEST C:\Users\Full Stack Developer\Desktop\New folder (6)\AI_Employee_Vault\whatsapp_session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/03/15-00:53:52.018 1e64 Recovering log #57
+2026/03/15-00:53:52.146 1e64 Reusing old log C:\Users\Full Stack Developer\Desktop\New folder (6)\AI_Employee_Vault\whatsapp_session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000057.log 
+2026/03/15-00:53:54.187 1e64 Level-0 table #62: started
+2026/03/15-00:53:54.244 1e64 Level-0 table #62: 1083685 bytes OK
+2026/03/15-00:53:54.251 1e64 Delete type=0 #57
+2026/03/15-00:53:54.937 1e64 Compacting 1@1 + 1@2 files
+2026/03/15-00:53:55.066 1e64 Generated table #63@1: 35648 keys, 1640908 bytes
+2026/03/15-00:53:55.067 1e64 Compacted 1@1 + 1@2 files => 1640908 bytes
+2026/03/15-00:53:55.072 1e64 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/03/15-00:53:55.073 1e64 Delete type=2 #59
+2026/03/15-00:53:55.073 1e64 Delete type=2 #62
